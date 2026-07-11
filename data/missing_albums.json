@@ -1,0 +1,2081 @@
+{
+  "schema_version": 1,
+  "artists": [
+    {
+      "artist": "ABBA",
+      "musicbrainz_id": "d87e52c5-bb8d-4da8-b941-9f4928627dc8",
+      "status": "matched",
+      "missing": [
+        {
+          "title": "Waterloo",
+          "first_release_date": "1974-03-04",
+          "type": "Album"
+        },
+        {
+          "title": "Super Trouper",
+          "first_release_date": "1980-11-03",
+          "type": "Album"
+        },
+        {
+          "title": "Ring Ring",
+          "first_release_date": "1973-03-26",
+          "type": "Album"
+        },
+        {
+          "title": "ABBA",
+          "first_release_date": "1975-04-21",
+          "type": "Album"
+        },
+        {
+          "title": "Voulez‐vous",
+          "first_release_date": "1979-04-23",
+          "type": "Album"
+        },
+        {
+          "title": "The Visitors",
+          "first_release_date": "1981-11-30",
+          "type": "Album"
+        },
+        {
+          "title": "The Album",
+          "first_release_date": "1977-12-12",
+          "type": "Album"
+        },
+        {
+          "title": "Voyage",
+          "first_release_date": "2021-11-05",
+          "type": "Album"
+        },
+        {
+          "title": "Arrival",
+          "first_release_date": "1976-10-11",
+          "type": "Album"
+        }
+      ]
+    },
+    {
+      "artist": "Ace of Base",
+      "musicbrainz_id": "d4a1404d-e00c-4bac-b3ba-e3557f6468d6",
+      "status": "matched",
+      "missing": [
+        {
+          "title": "Cruel Summer",
+          "first_release_date": "1998-07-14",
+          "type": "Album"
+        },
+        {
+          "title": "The Bridge",
+          "first_release_date": "1995-10-27",
+          "type": "Album"
+        },
+        {
+          "title": "The Golden Ratio",
+          "first_release_date": "2010-09-24",
+          "type": "Album"
+        },
+        {
+          "title": "Da Capo",
+          "first_release_date": "2002-09-30",
+          "type": "Album"
+        },
+        {
+          "title": "Flowers",
+          "first_release_date": "1998-06-15",
+          "type": "Album"
+        },
+        {
+          "title": "Happy Nation",
+          "first_release_date": "1992-12",
+          "type": "Album"
+        }
+      ]
+    },
+    {
+      "artist": "Alan Jackson",
+      "musicbrainz_id": "7291957b-c463-4275-a41c-a104c9e2337f",
+      "status": "matched",
+      "missing": [
+        {
+          "title": "Angels and Alcohol",
+          "first_release_date": "2015-07-17",
+          "type": "Album"
+        },
+        {
+          "title": "New Traditional",
+          "first_release_date": "1987",
+          "type": "Album"
+        },
+        {
+          "title": "Honky Tonk Christmas",
+          "first_release_date": "1993-10-12",
+          "type": "Album"
+        },
+        {
+          "title": "Let It Be Christmas",
+          "first_release_date": "2002-10-22",
+          "type": "Album"
+        },
+        {
+          "title": "Like Red on a Rose",
+          "first_release_date": "2006-09-26",
+          "type": "Album"
+        },
+        {
+          "title": "Here in the Real World",
+          "first_release_date": "1990-02-27",
+          "type": "Album"
+        },
+        {
+          "title": "Good Time",
+          "first_release_date": "2008-03-04",
+          "type": "Album"
+        },
+        {
+          "title": "Nighttime Dreams",
+          "first_release_date": "2014-07-04",
+          "type": "Album"
+        },
+        {
+          "title": "Thirty Miles West",
+          "first_release_date": "2012-06-05",
+          "type": "Album"
+        },
+        {
+          "title": "What I Do",
+          "first_release_date": "2004-09-07",
+          "type": "Album"
+        },
+        {
+          "title": "When Somebody Loves You",
+          "first_release_date": "2000-11-07",
+          "type": "Album"
+        },
+        {
+          "title": "Precious Memories, Volume II",
+          "first_release_date": "2013-03-22",
+          "type": "Album"
+        },
+        {
+          "title": "A Lot About Livin’ (and a Little ’Bout Love)",
+          "first_release_date": "1992-10-09",
+          "type": "Album"
+        },
+        {
+          "title": "Don’t Rock the Jukebox",
+          "first_release_date": "1991-05-14",
+          "type": "Album"
+        },
+        {
+          "title": "Freight Train",
+          "first_release_date": "2010-03-29",
+          "type": "Album"
+        },
+        {
+          "title": "Where Have You Gone",
+          "first_release_date": "2021-05-14",
+          "type": "Album"
+        },
+        {
+          "title": "Under the Influence",
+          "first_release_date": "1999",
+          "type": "Album"
+        },
+        {
+          "title": "Who I Am",
+          "first_release_date": "1994-06-28",
+          "type": "Album"
+        },
+        {
+          "title": "High Mileage",
+          "first_release_date": "1998-09-01",
+          "type": "Album"
+        },
+        {
+          "title": "Everything I Love",
+          "first_release_date": "1996-10-29",
+          "type": "Album"
+        },
+        {
+          "title": "The Bluegrass Album",
+          "first_release_date": "2013-09-24",
+          "type": "Album"
+        },
+        {
+          "title": "Precious Memories",
+          "first_release_date": "2006-02-28",
+          "type": "Album"
+        },
+        {
+          "title": "Drive",
+          "first_release_date": "2002-01-15",
+          "type": "Album"
+        }
+      ]
+    },
+    {
+      "artist": "Barenaked Ladies",
+      "musicbrainz_id": "86e736b4-93e2-40ff-9e1c-fb7c63fef5f6",
+      "status": "matched",
+      "missing": [
+        {
+          "title": "All in Good Time",
+          "first_release_date": "2010-03-23",
+          "type": "Album"
+        },
+        {
+          "title": "Grinning Streak",
+          "first_release_date": "2013-06-04",
+          "type": "Album"
+        },
+        {
+          "title": "Ladies and Gentlemen: Barenaked Ladies and The Persuasions",
+          "first_release_date": "2017-04-14",
+          "type": "Album"
+        },
+        {
+          "title": "Born on a Pirate Ship",
+          "first_release_date": "1996-03-19",
+          "type": "Album"
+        },
+        {
+          "title": "Maybe You Should Drive",
+          "first_release_date": "1994-08-12",
+          "type": "Album"
+        },
+        {
+          "title": "Stunt",
+          "first_release_date": "1998-07-07",
+          "type": "Album"
+        },
+        {
+          "title": "Maroon",
+          "first_release_date": "2000-09-12",
+          "type": "Album"
+        },
+        {
+          "title": "Barenaked for the Holidays",
+          "first_release_date": "2004-10-05",
+          "type": "Album"
+        },
+        {
+          "title": "Gordon",
+          "first_release_date": "1992-07-28",
+          "type": "Album"
+        },
+        {
+          "title": "Barenaked Ladies Are Men",
+          "first_release_date": "2007-02-06",
+          "type": "Album"
+        },
+        {
+          "title": "Everything to Everyone",
+          "first_release_date": "2003-10-21",
+          "type": "Album"
+        },
+        {
+          "title": "Silverball",
+          "first_release_date": "2015-06-02",
+          "type": "Album"
+        },
+        {
+          "title": "Detour de Force",
+          "first_release_date": "2021-07-16",
+          "type": "Album"
+        },
+        {
+          "title": "Fake Nudes",
+          "first_release_date": "2017-11-17",
+          "type": "Album"
+        },
+        {
+          "title": "Barenaked Ladies Are Me",
+          "first_release_date": "2006-09-08",
+          "type": "Album"
+        },
+        {
+          "title": "Snacktime!",
+          "first_release_date": "2008-05-06",
+          "type": "Album"
+        },
+        {
+          "title": "In Flight",
+          "first_release_date": "2023-09-15",
+          "type": "Album"
+        }
+      ]
+    },
+    {
+      "artist": "Brooks & Dunn",
+      "musicbrainz_id": "f30118c5-f783-4969-8427-f3c096378267",
+      "status": "matched",
+      "missing": [
+        {
+          "title": "If You See Her",
+          "first_release_date": "1998-06-02",
+          "type": "Album"
+        },
+        {
+          "title": "Red Dirt Road",
+          "first_release_date": "2003-07-15",
+          "type": "Album"
+        },
+        {
+          "title": "Hillbilly Deluxe",
+          "first_release_date": "2005-08-30",
+          "type": "Album"
+        },
+        {
+          "title": "Borderline",
+          "first_release_date": "1996-04-16",
+          "type": "Album"
+        },
+        {
+          "title": "Tight Rope",
+          "first_release_date": "1999-09-14",
+          "type": "Album"
+        },
+        {
+          "title": "Reboot II",
+          "first_release_date": "2024-09-16",
+          "type": "Album"
+        },
+        {
+          "title": "Cowboy Town",
+          "first_release_date": "2007-10-02",
+          "type": "Album"
+        },
+        {
+          "title": "Reboot",
+          "first_release_date": "2019-04-05",
+          "type": "Album"
+        },
+        {
+          "title": "Waitin’ on Sundown",
+          "first_release_date": "1994-09-27",
+          "type": "Album"
+        },
+        {
+          "title": "It Won't Be Christmas Without You",
+          "first_release_date": "2002",
+          "type": "Album"
+        },
+        {
+          "title": "Boot Scootin'",
+          "first_release_date": "",
+          "type": "Album"
+        },
+        {
+          "title": "Hard Workin’ Man",
+          "first_release_date": "1993-02-23",
+          "type": "Album"
+        },
+        {
+          "title": "Brand New Man",
+          "first_release_date": "1991-08-13",
+          "type": "Album"
+        },
+        {
+          "title": "Steers and Stripes",
+          "first_release_date": "2001-04-17",
+          "type": "Album"
+        }
+      ]
+    },
+    {
+      "artist": "Cake",
+      "musicbrainz_id": "fa7b9055-3703-473a-8a09-adf2fe031a24",
+      "status": "matched",
+      "missing": [
+        {
+          "title": "Showroom of Compassion",
+          "first_release_date": "2011-01-11",
+          "type": "Album"
+        },
+        {
+          "title": "Fashion Nugget",
+          "first_release_date": "1996-09-17",
+          "type": "Album"
+        },
+        {
+          "title": "Pressure Chief",
+          "first_release_date": "2004-10-04",
+          "type": "Album"
+        },
+        {
+          "title": "Motorcade of Generosity",
+          "first_release_date": "1994-02-07",
+          "type": "Album"
+        },
+        {
+          "title": "Comfort Eagle",
+          "first_release_date": "2001-07-23",
+          "type": "Album"
+        }
+      ]
+    },
+    {
+      "artist": "Celine Dion",
+      "musicbrainz_id": "847e8a0c-cc20-4213-9e16-975515c2a926",
+      "status": "matched",
+      "missing": [
+        {
+          "title": "Les chemins de ma maison",
+          "first_release_date": "1983-09-06",
+          "type": "Album"
+        },
+        {
+          "title": "S’il suffisait d’aimer",
+          "first_release_date": "1998-08-31",
+          "type": "Album"
+        },
+        {
+          "title": "C’est pour toi",
+          "first_release_date": "1985-08-27",
+          "type": "Album"
+        },
+        {
+          "title": "Céline Dion",
+          "first_release_date": "1992-03-30",
+          "type": "Album"
+        },
+        {
+          "title": "Dion chante Plamondon",
+          "first_release_date": "1991-11-04",
+          "type": "Album"
+        },
+        {
+          "title": "Encore un soir",
+          "first_release_date": "2016-08-26",
+          "type": "Album"
+        },
+        {
+          "title": "Mélanie",
+          "first_release_date": "1984",
+          "type": "Album"
+        },
+        {
+          "title": "Tellement j’ai d’amour…",
+          "first_release_date": "1982-09-07",
+          "type": "Album"
+        },
+        {
+          "title": "One Heart",
+          "first_release_date": "2003-03-25",
+          "type": "Album"
+        },
+        {
+          "title": "Taking Chances",
+          "first_release_date": "2007-11-01",
+          "type": "Album"
+        },
+        {
+          "title": "Céline Dion chante Noël",
+          "first_release_date": "1981-12-01",
+          "type": "Album"
+        },
+        {
+          "title": "D’elles",
+          "first_release_date": "2007-05-21",
+          "type": "Album"
+        },
+        {
+          "title": "The Colour of My Love",
+          "first_release_date": "1993-11-09",
+          "type": "Album"
+        },
+        {
+          "title": "Miracle",
+          "first_release_date": "2004-10-11",
+          "type": "Album"
+        },
+        {
+          "title": "A New Day Has Come",
+          "first_release_date": "2002-03-25",
+          "type": "Album"
+        },
+        {
+          "title": "D’eux",
+          "first_release_date": "1995-03-27",
+          "type": "Album"
+        },
+        {
+          "title": "Sans attendre",
+          "first_release_date": "2012-11-02",
+          "type": "Album"
+        },
+        {
+          "title": "Unison",
+          "first_release_date": "1990-04-02",
+          "type": "Album"
+        },
+        {
+          "title": "Loved Me Back to Life",
+          "first_release_date": "2013-11-01",
+          "type": "Album"
+        },
+        {
+          "title": "La Voix du bon Dieu",
+          "first_release_date": "1981-11-09",
+          "type": "Album"
+        },
+        {
+          "title": "Courage",
+          "first_release_date": "2019-11-15",
+          "type": "Album"
+        },
+        {
+          "title": "Incognito",
+          "first_release_date": "1987-04-02",
+          "type": "Album"
+        },
+        {
+          "title": "Let’s Talk About Love",
+          "first_release_date": "1997-11-14",
+          "type": "Album"
+        },
+        {
+          "title": "1 fille & 4 types",
+          "first_release_date": "2003-10-13",
+          "type": "Album"
+        },
+        {
+          "title": "These Are Special Times",
+          "first_release_date": "1998-10-31",
+          "type": "Album"
+        },
+        {
+          "title": "Chants et contes de Noël",
+          "first_release_date": "1983-11-14",
+          "type": "Album"
+        }
+      ]
+    },
+    {
+      "artist": "Counting Crows",
+      "musicbrainz_id": "a0327dc2-dc76-44d5-aec6-47cd2dff1469",
+      "status": "matched",
+      "missing": [
+        {
+          "title": "Hard Candy",
+          "first_release_date": "2002-06",
+          "type": "Album"
+        },
+        {
+          "title": "Saturday Nights & Sunday Mornings",
+          "first_release_date": "2008-03-21",
+          "type": "Album"
+        },
+        {
+          "title": "Butter Miracle: The Complete Sweets!",
+          "first_release_date": "2025-05-09",
+          "type": "Album"
+        },
+        {
+          "title": "This Desert Life",
+          "first_release_date": "1999-11-01",
+          "type": "Album"
+        },
+        {
+          "title": "Underwater Sunshine (or What We Did on Our Summer Vacation)",
+          "first_release_date": "2012-04-06",
+          "type": "Album"
+        },
+        {
+          "title": "Somewhere Under Wonderland",
+          "first_release_date": "2014-09-02",
+          "type": "Album"
+        },
+        {
+          "title": "Recovering the Satellites",
+          "first_release_date": "1996-10-14",
+          "type": "Album"
+        }
+      ]
+    },
+    {
+      "artist": "Eve 6",
+      "musicbrainz_id": "ebd2ac91-6249-4e4b-bde1-353a424138c9",
+      "status": "matched",
+      "missing": [
+        {
+          "title": "Dream Fist",
+          "first_release_date": "2024-10-04",
+          "type": "Album"
+        },
+        {
+          "title": "Eleventeen",
+          "first_release_date": "1996",
+          "type": "Album"
+        },
+        {
+          "title": "Speak in Code",
+          "first_release_date": "2012-04-24",
+          "type": "Album"
+        },
+        {
+          "title": "hyper relevisation",
+          "first_release_date": "2022-09-23",
+          "type": "Album"
+        },
+        {
+          "title": "It’s All in Your Head",
+          "first_release_date": "2003-07-22",
+          "type": "Album"
+        },
+        {
+          "title": "Horrorscope",
+          "first_release_date": "2000-07-19",
+          "type": "Album"
+        }
+      ]
+    },
+    {
+      "artist": "Everclear",
+      "musicbrainz_id": "3604c99d-c146-4276-aa0c-9376d333aeb8",
+      "status": "matched",
+      "missing": [
+        {
+          "title": "Return to Santa Monica",
+          "first_release_date": "2011-09-27",
+          "type": "Album"
+        },
+        {
+          "title": "Songs From an American Movie, Vol. Two: Good Time for a Bad Attitude",
+          "first_release_date": "2000-11-21",
+          "type": "Album"
+        },
+        {
+          "title": "Invisible Stars",
+          "first_release_date": "2012-06-26",
+          "type": "Album"
+        },
+        {
+          "title": "World of Noise",
+          "first_release_date": "1993-12-10",
+          "type": "Album"
+        },
+        {
+          "title": "Black Is the New Black",
+          "first_release_date": "2015-04-24",
+          "type": "Album"
+        },
+        {
+          "title": "Impure White Evil",
+          "first_release_date": "2011",
+          "type": "Album"
+        },
+        {
+          "title": "Sparkle and Fade",
+          "first_release_date": "1995-05-23",
+          "type": "Album"
+        },
+        {
+          "title": "Slow Motion Daydream",
+          "first_release_date": "2003-03-11",
+          "type": "Album"
+        },
+        {
+          "title": "In a Different Light",
+          "first_release_date": "2009-10-06",
+          "type": "Album"
+        },
+        {
+          "title": "Welcome to the Drama Club",
+          "first_release_date": "2006-09-12",
+          "type": "Album"
+        },
+        {
+          "title": "Songs From an American Movie, Vol. One: Learning How to Smile",
+          "first_release_date": "2000-06-29",
+          "type": "Album"
+        }
+      ]
+    },
+    {
+      "artist": "Flogging Molly",
+      "musicbrainz_id": "c3694ddc-f7e5-40dd-9fad-90d11a2c50fa",
+      "status": "matched",
+      "missing": [
+        {
+          "title": "Float",
+          "first_release_date": "2008-03-04",
+          "type": "Album"
+        },
+        {
+          "title": "Anthem",
+          "first_release_date": "2022-09-09",
+          "type": "Album"
+        },
+        {
+          "title": "Swagger",
+          "first_release_date": "2000-03-07",
+          "type": "Album"
+        },
+        {
+          "title": "Within a Mile of Home",
+          "first_release_date": "2004-09-14",
+          "type": "Album"
+        },
+        {
+          "title": "Speed of Darkness",
+          "first_release_date": "2011-05-27",
+          "type": "Album"
+        },
+        {
+          "title": "Life Is Good",
+          "first_release_date": "2017-06-02",
+          "type": "Album"
+        },
+        {
+          "title": "Drunken Lullabies",
+          "first_release_date": "2002-03-19",
+          "type": "Album"
+        }
+      ]
+    },
+    {
+      "artist": "Geoff Moore & The Distance",
+      "musicbrainz_id": "744bd90f-6db8-4a25-b409-1c04f0f7ff09",
+      "status": "matched",
+      "missing": [
+        {
+          "title": "Foundations",
+          "first_release_date": "1989",
+          "type": "Album"
+        },
+        {
+          "title": "A Friend Like U",
+          "first_release_date": "1992",
+          "type": "Album"
+        },
+        {
+          "title": "Pure and Simple",
+          "first_release_date": "1990",
+          "type": "Album"
+        },
+        {
+          "title": "A Place to Stand",
+          "first_release_date": "1988-01-01",
+          "type": "Album"
+        },
+        {
+          "title": "Home Run!",
+          "first_release_date": "1995",
+          "type": "Album"
+        },
+        {
+          "title": "Threads",
+          "first_release_date": "1997",
+          "type": "Album"
+        }
+      ]
+    },
+    {
+      "artist": "Gin Blossoms",
+      "musicbrainz_id": "1c42b705-d3fc-452e-93ee-d0030bdd70f3",
+      "status": "matched",
+      "missing": [
+        {
+          "title": "New Miserable Experience",
+          "first_release_date": "1992-08-04",
+          "type": "Album"
+        },
+        {
+          "title": "Dusted",
+          "first_release_date": "1989",
+          "type": "Album"
+        },
+        {
+          "title": "Congratulations I’m Sorry",
+          "first_release_date": "1996-02-13",
+          "type": "Album"
+        },
+        {
+          "title": "No Chocolate Cake",
+          "first_release_date": "2010-09-27",
+          "type": "Album"
+        },
+        {
+          "title": "Mixed Reality",
+          "first_release_date": "2018-06-15",
+          "type": "Album"
+        },
+        {
+          "title": "In Bloom",
+          "first_release_date": "1994",
+          "type": "Album"
+        },
+        {
+          "title": "Major Lodge Victory",
+          "first_release_date": "2006-08-08",
+          "type": "Album"
+        }
+      ]
+    },
+    {
+      "artist": "Jars Of Clay",
+      "musicbrainz_id": "ca1ca0e3-8506-40b4-ac29-dbfb60c5a0bd",
+      "status": "matched",
+      "missing": [
+        {
+          "title": "Redemption Songs",
+          "first_release_date": "2005-03-22",
+          "type": "Album"
+        },
+        {
+          "title": "The Shelter",
+          "first_release_date": "2010-10-05",
+          "type": "Album"
+        },
+        {
+          "title": "Frail",
+          "first_release_date": "1994-04",
+          "type": "Album"
+        },
+        {
+          "title": "The Long Fall Back to Earth",
+          "first_release_date": "2009-04-21",
+          "type": "Album"
+        },
+        {
+          "title": "Peace Is Here: Christmas Reflections by Jars Of Clay",
+          "first_release_date": "2008-11-26",
+          "type": "Album"
+        },
+        {
+          "title": "Christmas Songs",
+          "first_release_date": "2007-10-16",
+          "type": "Album"
+        },
+        {
+          "title": "Who We Are Instead",
+          "first_release_date": "2003-11-04",
+          "type": "Album"
+        },
+        {
+          "title": "Good Monsters",
+          "first_release_date": "2006-09-05",
+          "type": "Album"
+        },
+        {
+          "title": "The Eleventh Hour",
+          "first_release_date": "2002-03-05",
+          "type": "Album"
+        },
+        {
+          "title": "Inland",
+          "first_release_date": "2013-08-27",
+          "type": "Album"
+        },
+        {
+          "title": "Inlandia",
+          "first_release_date": "2014-04-02",
+          "type": "Album"
+        }
+      ]
+    },
+    {
+      "artist": "Journey",
+      "musicbrainz_id": "abd506e1-6f2b-4d6f-b937-92c267f6f88b",
+      "status": "matched",
+      "missing": [
+        {
+          "title": "Freedom",
+          "first_release_date": "2022-07-08",
+          "type": "Album"
+        },
+        {
+          "title": "Infinity",
+          "first_release_date": "1978",
+          "type": "Album"
+        },
+        {
+          "title": "Departure",
+          "first_release_date": "1980-02-29",
+          "type": "Album"
+        },
+        {
+          "title": "Frontiers",
+          "first_release_date": "1983-02-01",
+          "type": "Album"
+        },
+        {
+          "title": "Next",
+          "first_release_date": "1977",
+          "type": "Album"
+        },
+        {
+          "title": "Revelation",
+          "first_release_date": "2008-06-03",
+          "type": "Album"
+        },
+        {
+          "title": "Journey",
+          "first_release_date": "1975-04-01",
+          "type": "Album"
+        },
+        {
+          "title": "Trial by Fire",
+          "first_release_date": "1996-10-16",
+          "type": "Album"
+        },
+        {
+          "title": "Generations",
+          "first_release_date": "2005-08-24",
+          "type": "Album"
+        },
+        {
+          "title": "Raised on Radio",
+          "first_release_date": "1986-04-21",
+          "type": "Album"
+        },
+        {
+          "title": "Look Into the Future",
+          "first_release_date": "1976",
+          "type": "Album"
+        },
+        {
+          "title": "Escape",
+          "first_release_date": "1981-07-17",
+          "type": "Album"
+        },
+        {
+          "title": "Eclipse",
+          "first_release_date": "2011-05-24",
+          "type": "Album"
+        },
+        {
+          "title": "Evolution",
+          "first_release_date": "1979-03-20",
+          "type": "Album"
+        },
+        {
+          "title": "Arrival",
+          "first_release_date": "2000-10-25",
+          "type": "Album"
+        }
+      ]
+    },
+    {
+      "artist": "Lifehouse",
+      "musicbrainz_id": "04591295-6d94-45cb-b6c7-1ae17c6f380e",
+      "status": "matched",
+      "missing": [
+        {
+          "title": "Who We Are",
+          "first_release_date": "2007-06-19",
+          "type": "Album"
+        },
+        {
+          "title": "Stanley Climbfall",
+          "first_release_date": "2002-09-16",
+          "type": "Album"
+        },
+        {
+          "title": "Lifehouse",
+          "first_release_date": "2005-03-22",
+          "type": "Album"
+        },
+        {
+          "title": "diff's lucky day (blyss remaster)",
+          "first_release_date": "2025-12-19",
+          "type": "Album"
+        },
+        {
+          "title": "Smoke & Mirrors",
+          "first_release_date": "2010-02-03",
+          "type": "Album"
+        },
+        {
+          "title": "Out of the Wasteland",
+          "first_release_date": "2015-05-26",
+          "type": "Album"
+        },
+        {
+          "title": "Almería",
+          "first_release_date": "2012-01-01",
+          "type": "Album"
+        }
+      ]
+    },
+    {
+      "artist": "Limousines",
+      "musicbrainz_id": "b4aa081c-e13e-4e9c-8fbc-f313cace0f01",
+      "status": "matched",
+      "missing": [
+        {
+          "title": "Hush",
+          "first_release_date": "2013-06-01",
+          "type": "Album"
+        }
+      ]
+    },
+    {
+      "artist": "Live",
+      "musicbrainz_id": "cba77ba2-862d-4cee-a8f6-d3f9daf7211c",
+      "status": "matched",
+      "missing": [
+        {
+          "title": "Mental Jewelry",
+          "first_release_date": "1991-12-31",
+          "type": "Album"
+        },
+        {
+          "title": "Songs From Black Mountain",
+          "first_release_date": "2006-04-03",
+          "type": "Album"
+        },
+        {
+          "title": "Unwired & Wired",
+          "first_release_date": "",
+          "type": "Album"
+        },
+        {
+          "title": "V",
+          "first_release_date": "2001-06-15",
+          "type": "Album"
+        },
+        {
+          "title": "The Turn",
+          "first_release_date": "2014-10-27",
+          "type": "Album"
+        },
+        {
+          "title": "Birds of Pray",
+          "first_release_date": "2003-05-20",
+          "type": "Album"
+        },
+        {
+          "title": "The Distance to Den Haag",
+          "first_release_date": "1999",
+          "type": "Album"
+        },
+        {
+          "title": "Secret Samadhi",
+          "first_release_date": "1997-02-18",
+          "type": "Album"
+        }
+      ]
+    },
+    {
+      "artist": "Matchbox 20",
+      "musicbrainz_id": "75af9d25-cf32-49c0-9192-60bd8e9784e6",
+      "status": "matched",
+      "missing": [
+        {
+          "title": "North",
+          "first_release_date": "2012-08-28",
+          "type": "Album"
+        },
+        {
+          "title": "Mad Season (Deluxe Edition)",
+          "first_release_date": "2012",
+          "type": "Album"
+        },
+        {
+          "title": "Where the Light Goes",
+          "first_release_date": "2023-05-26",
+          "type": "Album"
+        },
+        {
+          "title": "More Than You Think You Are",
+          "first_release_date": "2002-11-12",
+          "type": "Album"
+        }
+      ]
+    },
+    {
+      "artist": "Michael W. Smith",
+      "musicbrainz_id": "1f444240-5397-4e63-a3e8-a3eac2aace32",
+      "status": "matched",
+      "missing": [
+        {
+          "title": "Christmas",
+          "first_release_date": "1989-06",
+          "type": "Album"
+        },
+        {
+          "title": "Hand of GOD, Vol. 1",
+          "first_release_date": "2026-04-11",
+          "type": "Album"
+        },
+        {
+          "title": "I'll Lead You Home",
+          "first_release_date": "1995-08-29",
+          "type": "Album"
+        },
+        {
+          "title": "Lullaby",
+          "first_release_date": "2018-05-04",
+          "type": "Album"
+        },
+        {
+          "title": "Stand",
+          "first_release_date": "2006-11-07",
+          "type": "Album"
+        },
+        {
+          "title": "Glory",
+          "first_release_date": "2011-11-21",
+          "type": "Album"
+        },
+        {
+          "title": "This Is Your Time",
+          "first_release_date": "1999-01-12",
+          "type": "Album"
+        },
+        {
+          "title": "Every Christmas",
+          "first_release_date": "2023-10-06",
+          "type": "Album"
+        },
+        {
+          "title": "Wonder",
+          "first_release_date": "2010",
+          "type": "Album"
+        },
+        {
+          "title": "Surrounded",
+          "first_release_date": "2018-02-23",
+          "type": "Album"
+        },
+        {
+          "title": "Hymns II",
+          "first_release_date": "2016-01-29",
+          "type": "Album"
+        },
+        {
+          "title": "Still, Vol. 1",
+          "first_release_date": "2020-10-09",
+          "type": "Album"
+        },
+        {
+          "title": "Change Your World",
+          "first_release_date": "1992",
+          "type": "Album"
+        },
+        {
+          "title": "Christmastime",
+          "first_release_date": "1998-07-01",
+          "type": "Album"
+        },
+        {
+          "title": "Michael W. Smith Project",
+          "first_release_date": "1983",
+          "type": "Album"
+        },
+        {
+          "title": "It's a Wonderful Christmas",
+          "first_release_date": "2007-10-16",
+          "type": "Album"
+        },
+        {
+          "title": "Michael W. Smith 2",
+          "first_release_date": "1984-02-01",
+          "type": "Album"
+        },
+        {
+          "title": "A Million Lights",
+          "first_release_date": "2018-02-16",
+          "type": "Album"
+        },
+        {
+          "title": "Hymns",
+          "first_release_date": "2014-03-24",
+          "type": "Album"
+        },
+        {
+          "title": "The Spirit of Christmas",
+          "first_release_date": "2014-09-30",
+          "type": "Album"
+        },
+        {
+          "title": "Healing Rain",
+          "first_release_date": "2004-10-26",
+          "type": "Album"
+        },
+        {
+          "title": "i 2 (EYE)",
+          "first_release_date": "1988",
+          "type": "Album"
+        },
+        {
+          "title": "Sovereign",
+          "first_release_date": "2014-05-13",
+          "type": "Album"
+        },
+        {
+          "title": "Michael W. Smith Presents: Strings of Worship",
+          "first_release_date": "2011",
+          "type": "Album"
+        },
+        {
+          "title": "Freedom",
+          "first_release_date": "2000-11-21",
+          "type": "Album"
+        },
+        {
+          "title": "Strings of Christmas",
+          "first_release_date": "2011",
+          "type": "Album"
+        },
+        {
+          "title": "Live the Life",
+          "first_release_date": "1998-04-28",
+          "type": "Album"
+        },
+        {
+          "title": "The Big Picture",
+          "first_release_date": "1985",
+          "type": "Album"
+        }
+      ]
+    },
+    {
+      "artist": "Montgomery Gentry",
+      "musicbrainz_id": "d39f9276-32c1-4b84-9389-d77dbc3801ae",
+      "status": "matched",
+      "missing": [
+        {
+          "title": "Tattoos & Scars",
+          "first_release_date": "1999-04-06",
+          "type": "Album"
+        },
+        {
+          "title": "Carrying On",
+          "first_release_date": "2001-05-01",
+          "type": "Album"
+        },
+        {
+          "title": "Here’s to You",
+          "first_release_date": "2018-02-02",
+          "type": "Album"
+        },
+        {
+          "title": "Some People Change",
+          "first_release_date": "2006-10-24",
+          "type": "Album"
+        },
+        {
+          "title": "Folks Like Us",
+          "first_release_date": "2015-06-09",
+          "type": "Album"
+        },
+        {
+          "title": "Rebels on the Run",
+          "first_release_date": "2011-10-18",
+          "type": "Album"
+        },
+        {
+          "title": "Outskirts",
+          "first_release_date": "2019-06-14",
+          "type": "Album"
+        },
+        {
+          "title": "20 Years of Hits",
+          "first_release_date": "2018-11-16",
+          "type": "Album"
+        },
+        {
+          "title": "You Do Your Thing",
+          "first_release_date": "2004-05-18",
+          "type": "Album"
+        },
+        {
+          "title": "Back When I Knew It All",
+          "first_release_date": "2008-06-10",
+          "type": "Album"
+        }
+      ]
+    },
+    {
+      "artist": "Norah Jones",
+      "musicbrainz_id": "985c709c-7771-4de3-9024-7bda29ebe3f9",
+      "status": "matched",
+      "missing": [
+        {
+          "title": "Not Too Late",
+          "first_release_date": "2006",
+          "type": "Album"
+        },
+        {
+          "title": "Visions",
+          "first_release_date": "2024-03-08",
+          "type": "Album"
+        },
+        {
+          "title": "I Dream of Christmas",
+          "first_release_date": "2021-10-14",
+          "type": "Album"
+        },
+        {
+          "title": "Feels Like Home",
+          "first_release_date": "2004-02-06",
+          "type": "Album"
+        },
+        {
+          "title": "New York City",
+          "first_release_date": "2003-07-08",
+          "type": "Album"
+        },
+        {
+          "title": "…Little Broken Hearts",
+          "first_release_date": "2012-04-25",
+          "type": "Album"
+        },
+        {
+          "title": "Begin Again",
+          "first_release_date": "2019-04-12",
+          "type": "Album"
+        },
+        {
+          "title": "The Fall",
+          "first_release_date": "2009-11-11",
+          "type": "Album"
+        },
+        {
+          "title": "Day Breaks",
+          "first_release_date": "2016-10-05",
+          "type": "Album"
+        },
+        {
+          "title": "Foreverly",
+          "first_release_date": "2013-11-22",
+          "type": "Album"
+        },
+        {
+          "title": "Pick Me Up Off the Floor",
+          "first_release_date": "2020-06-12",
+          "type": "Album"
+        }
+      ]
+    },
+    {
+      "artist": "Paul Simon",
+      "musicbrainz_id": "05517043-ff78-4988-9c22-88c68588ebb9",
+      "status": "matched",
+      "missing": [
+        {
+          "title": "Graceland",
+          "first_release_date": "1986-08-29",
+          "type": "Album"
+        },
+        {
+          "title": "Hearts and Bones",
+          "first_release_date": "1983-11",
+          "type": "Album"
+        },
+        {
+          "title": "The Wobble (Paul Simon a.k.a. Jerry Landis)",
+          "first_release_date": "2012-05-09",
+          "type": "Album"
+        },
+        {
+          "title": "Complete Unplugged",
+          "first_release_date": "2016",
+          "type": "Album"
+        },
+        {
+          "title": "One‐Trick Pony",
+          "first_release_date": "1980-08-12",
+          "type": "Album"
+        },
+        {
+          "title": "Rhymin’ in NYC",
+          "first_release_date": "2019",
+          "type": "Album"
+        },
+        {
+          "title": "Paul Simon",
+          "first_release_date": "1972-03",
+          "type": "Album"
+        },
+        {
+          "title": "So Beautiful or So What",
+          "first_release_date": "2011-04-08",
+          "type": "Album"
+        },
+        {
+          "title": "Stranger to Stranger",
+          "first_release_date": "2016-06-03",
+          "type": "Album"
+        },
+        {
+          "title": "The Rhythm of the Saints",
+          "first_release_date": "1990-10-15",
+          "type": "Album"
+        },
+        {
+          "title": "Surprise",
+          "first_release_date": "2006-05-09",
+          "type": "Album"
+        },
+        {
+          "title": "Songs From The Capeman",
+          "first_release_date": "1997-11-18",
+          "type": "Album"
+        },
+        {
+          "title": "In the Blue Light",
+          "first_release_date": "2018-09-07",
+          "type": "Album"
+        },
+        {
+          "title": "You’re the One",
+          "first_release_date": "2000-10-02",
+          "type": "Album"
+        },
+        {
+          "title": "Paul Simon Live Unlicensed",
+          "first_release_date": "",
+          "type": "Album"
+        },
+        {
+          "title": "The Paul Simon Songbook",
+          "first_release_date": "1965",
+          "type": "Album"
+        },
+        {
+          "title": "There Goes Rhymin’ Simon",
+          "first_release_date": "1973-05",
+          "type": "Album"
+        },
+        {
+          "title": "Seven Psalms",
+          "first_release_date": "2023-05-19",
+          "type": "Album"
+        }
+      ]
+    },
+    {
+      "artist": "Queen",
+      "musicbrainz_id": "0383dadf-2a4e-4d10-a46a-e9e041da8eb3",
+      "status": "matched",
+      "missing": [
+        {
+          "title": "Sheer Heart Attack",
+          "first_release_date": "1974-11-01",
+          "type": "Album"
+        },
+        {
+          "title": "The Miracle",
+          "first_release_date": "1989-05-22",
+          "type": "Album"
+        },
+        {
+          "title": "Hot Space",
+          "first_release_date": "1982-05-21",
+          "type": "Album"
+        },
+        {
+          "title": "The Works",
+          "first_release_date": "1984-02-27",
+          "type": "Album"
+        },
+        {
+          "title": "A Night at the Opera",
+          "first_release_date": "1975-11-21",
+          "type": "Album"
+        },
+        {
+          "title": "The Game",
+          "first_release_date": "1980-06-24",
+          "type": "Album"
+        },
+        {
+          "title": "Made in Heaven",
+          "first_release_date": "1995-10-24",
+          "type": "Album"
+        },
+        {
+          "title": "Queen",
+          "first_release_date": "1973-07-13",
+          "type": "Album"
+        },
+        {
+          "title": "A Kind of Magic",
+          "first_release_date": "1986-06-02",
+          "type": "Album"
+        },
+        {
+          "title": "Queen II",
+          "first_release_date": "1974-04-09",
+          "type": "Album"
+        },
+        {
+          "title": "A Day at the Races",
+          "first_release_date": "1976-12-10",
+          "type": "Album"
+        },
+        {
+          "title": "News of the World",
+          "first_release_date": "1977-10-28",
+          "type": "Album"
+        },
+        {
+          "title": "Jazz",
+          "first_release_date": "1978-11-10",
+          "type": "Album"
+        },
+        {
+          "title": "Innuendo",
+          "first_release_date": "1991-01-30",
+          "type": "Album"
+        }
+      ]
+    },
+    {
+      "artist": "Rush",
+      "musicbrainz_id": "534ee493-bfac-4575-a44a-0ae41e2c3fe4",
+      "status": "matched",
+      "missing": [
+        {
+          "title": "Fly by Night",
+          "first_release_date": "1975-02-15",
+          "type": "Album"
+        },
+        {
+          "title": "Moving Pictures",
+          "first_release_date": "1981-02-06",
+          "type": "Album"
+        },
+        {
+          "title": "Vapor Trails",
+          "first_release_date": "2002-05-14",
+          "type": "Album"
+        },
+        {
+          "title": "Clockwork Angels",
+          "first_release_date": "2012-06-08",
+          "type": "Album"
+        },
+        {
+          "title": "Hemispheres",
+          "first_release_date": "1978-11",
+          "type": "Album"
+        },
+        {
+          "title": "A Farewell to Kings",
+          "first_release_date": "1977-06",
+          "type": "Album"
+        },
+        {
+          "title": "Signals",
+          "first_release_date": "1982-09-10",
+          "type": "Album"
+        },
+        {
+          "title": "Permanent Waves",
+          "first_release_date": "1980-01-01",
+          "type": "Album"
+        },
+        {
+          "title": "Counterparts",
+          "first_release_date": "1993-10-19",
+          "type": "Album"
+        },
+        {
+          "title": "Test for Echo",
+          "first_release_date": "1996-09-09",
+          "type": "Album"
+        },
+        {
+          "title": "Snakes & Arrows",
+          "first_release_date": "2007-05-01",
+          "type": "Album"
+        },
+        {
+          "title": "Caress of Steel",
+          "first_release_date": "1975-09-15",
+          "type": "Album"
+        },
+        {
+          "title": "Hold Your Fire",
+          "first_release_date": "1987-09-03",
+          "type": "Album"
+        },
+        {
+          "title": "Presto",
+          "first_release_date": "1989-11-07",
+          "type": "Album"
+        },
+        {
+          "title": "Roll the Bones",
+          "first_release_date": "1991-09-03",
+          "type": "Album"
+        },
+        {
+          "title": "Power Windows",
+          "first_release_date": "1985-10-14",
+          "type": "Album"
+        },
+        {
+          "title": "Rush",
+          "first_release_date": "1974-03-01",
+          "type": "Album"
+        },
+        {
+          "title": "Grace Under Pressure",
+          "first_release_date": "1984-04-12",
+          "type": "Album"
+        }
+      ]
+    },
+    {
+      "artist": "Sister Hazel",
+      "musicbrainz_id": "3b141e34-8c02-4074-b68a-7d64e3212acd",
+      "status": "matched",
+      "missing": [
+        {
+          "title": "Heartland Highway",
+          "first_release_date": "2010-10-11",
+          "type": "Album"
+        },
+        {
+          "title": "Lighter in the Dark",
+          "first_release_date": "2016-02-19",
+          "type": "Album"
+        },
+        {
+          "title": "Sister Hazel",
+          "first_release_date": "1994",
+          "type": "Album"
+        },
+        {
+          "title": "Santa's Playlist",
+          "first_release_date": "2007-09-25",
+          "type": "Album"
+        },
+        {
+          "title": "…Somewhere More Familiar",
+          "first_release_date": "1996",
+          "type": "Album"
+        },
+        {
+          "title": "Release",
+          "first_release_date": "2009-08-18",
+          "type": "Album"
+        },
+        {
+          "title": "Chasing Daylight",
+          "first_release_date": "2003-03-09",
+          "type": "Album"
+        },
+        {
+          "title": "Lift",
+          "first_release_date": "2004-08-24",
+          "type": "Album"
+        },
+        {
+          "title": "Fortress",
+          "first_release_date": "2000-06-27",
+          "type": "Album"
+        },
+        {
+          "title": "Ken & Drew's Lost Cassette Covers",
+          "first_release_date": "2025-12-25",
+          "type": "Album"
+        },
+        {
+          "title": "Elements",
+          "first_release_date": "2020",
+          "type": "Album"
+        },
+        {
+          "title": "Fortress",
+          "first_release_date": "2000-06-27",
+          "type": "Album"
+        },
+        {
+          "title": "Absolutely",
+          "first_release_date": "2006-10-10",
+          "type": "Album"
+        },
+        {
+          "title": "Sand, Sea & Crash Debris",
+          "first_release_date": "2024-11-15",
+          "type": "Album"
+        }
+      ]
+    },
+    {
+      "artist": "Soundtracks",
+      "status": "excluded_collection",
+      "missing": []
+    },
+    {
+      "artist": "Spice Girls",
+      "musicbrainz_id": "bf0caafc-2b20-4e07-ab85-87e14ff430ce",
+      "status": "matched",
+      "missing": [
+        {
+          "title": "Spiceworld",
+          "first_release_date": "1997-10-31",
+          "type": "Album"
+        },
+        {
+          "title": "Forever",
+          "first_release_date": "2000-11-01",
+          "type": "Album"
+        }
+      ]
+    },
+    {
+      "artist": "The Beatles",
+      "musicbrainz_id": "b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d",
+      "status": "matched",
+      "missing": [
+        {
+          "title": "The Beatles",
+          "first_release_date": "1968-11-22",
+          "type": "Album"
+        },
+        {
+          "title": "Yesterday and Today",
+          "first_release_date": "1966-06-14",
+          "type": "Album"
+        },
+        {
+          "title": "Beatles ’65",
+          "first_release_date": "1964-12-15",
+          "type": "Album"
+        },
+        {
+          "title": "Twist and Shout",
+          "first_release_date": "1964-02-03",
+          "type": "Album"
+        },
+        {
+          "title": "The Beatles’ Second Album",
+          "first_release_date": "1964-04-10",
+          "type": "Album"
+        },
+        {
+          "title": "Beatles VI",
+          "first_release_date": "1965-06-14",
+          "type": "Album"
+        },
+        {
+          "title": "Something New",
+          "first_release_date": "1964-07-20",
+          "type": "Album"
+        },
+        {
+          "title": "Introducing… The Beatles",
+          "first_release_date": "1964-01-10",
+          "type": "Album"
+        },
+        {
+          "title": "Revolver",
+          "first_release_date": "1966-08-05",
+          "type": "Album"
+        },
+        {
+          "title": "Abbey Road",
+          "first_release_date": "1969-09-26",
+          "type": "Album"
+        },
+        {
+          "title": "Sgt. Pepper’s Lonely Hearts Club Band",
+          "first_release_date": "1967-05-26",
+          "type": "Album"
+        },
+        {
+          "title": "With The Beatles",
+          "first_release_date": "1963-11-22",
+          "type": "Album"
+        },
+        {
+          "title": "Let It Be",
+          "first_release_date": "1970-05-08",
+          "type": "Album"
+        },
+        {
+          "title": "Meet The Beatles!",
+          "first_release_date": "1964-01-20",
+          "type": "Album"
+        },
+        {
+          "title": "The Beatles’ Long Tall Sally",
+          "first_release_date": "1964-05-11",
+          "type": "Album"
+        },
+        {
+          "title": "Rubber Soul",
+          "first_release_date": "1965-12-03",
+          "type": "Album"
+        },
+        {
+          "title": "Please Please Me",
+          "first_release_date": "1963-03-22",
+          "type": "Album"
+        },
+        {
+          "title": "Beatles for Sale",
+          "first_release_date": "1964-12-04",
+          "type": "Album"
+        }
+      ]
+    },
+    {
+      "artist": "The Verve Pipe",
+      "musicbrainz_id": "28f93e8a-43fa-4cfb-aea5-11252ff937ab",
+      "status": "matched",
+      "missing": [
+        {
+          "title": "Pop Smear",
+          "first_release_date": "1993-12",
+          "type": "Album"
+        },
+        {
+          "title": "A Family Album",
+          "first_release_date": "2009-10-03",
+          "type": "Album"
+        },
+        {
+          "title": "Reconciled",
+          "first_release_date": "2025-07-25",
+          "type": "Album"
+        },
+        {
+          "title": "Villains",
+          "first_release_date": "1996-03-26",
+          "type": "Album"
+        },
+        {
+          "title": "The Verve Pipe",
+          "first_release_date": "1999-07-27",
+          "type": "Album"
+        },
+        {
+          "title": "Underneath",
+          "first_release_date": "2001-09-25",
+          "type": "Album"
+        },
+        {
+          "title": "Parachute",
+          "first_release_date": "2017-02-17",
+          "type": "Album"
+        },
+        {
+          "title": "Overboard",
+          "first_release_date": "2014-06-17",
+          "type": "Album"
+        },
+        {
+          "title": "Are We There Yet?",
+          "first_release_date": "2013-07-06",
+          "type": "Album"
+        },
+        {
+          "title": "Threads",
+          "first_release_date": "2021-11-05",
+          "type": "Album"
+        }
+      ]
+    },
+    {
+      "artist": "The Wallflowers",
+      "musicbrainz_id": "d9c90718-d54d-4ccf-a92e-37a5415ce299",
+      "status": "matched",
+      "missing": [
+        {
+          "title": "Red Letter Days",
+          "first_release_date": "2002-11-05",
+          "type": "Album"
+        },
+        {
+          "title": "Bringing Down the Horse",
+          "first_release_date": "1996-05-21",
+          "type": "Album"
+        },
+        {
+          "title": "The Wallflowers",
+          "first_release_date": "1992-08-25",
+          "type": "Album"
+        },
+        {
+          "title": "(Breach)",
+          "first_release_date": "2000-09-26",
+          "type": "Album"
+        },
+        {
+          "title": "Rebel, Sweetheart",
+          "first_release_date": "2005-05-24",
+          "type": "Album"
+        },
+        {
+          "title": "Glad All Over",
+          "first_release_date": "2012-09-25",
+          "type": "Album"
+        },
+        {
+          "title": "Exit Wounds",
+          "first_release_date": "2021-07-09",
+          "type": "Album"
+        }
+      ]
+    },
+    {
+      "artist": "Tracy Chapman",
+      "musicbrainz_id": "1129817c-488a-4096-80c1-77fc1b107c93",
+      "status": "matched",
+      "missing": [
+        {
+          "title": "Our Bright Future",
+          "first_release_date": "2008-11-07",
+          "type": "Album"
+        },
+        {
+          "title": "Let It Rain",
+          "first_release_date": "2002-10-14",
+          "type": "Album"
+        },
+        {
+          "title": "Crossroads",
+          "first_release_date": "1989-09-29",
+          "type": "Album"
+        },
+        {
+          "title": "New Beginning",
+          "first_release_date": "1995-11-10",
+          "type": "Album"
+        },
+        {
+          "title": "Matters of the Heart",
+          "first_release_date": "1992-04-28",
+          "type": "Album"
+        },
+        {
+          "title": "Tracy Chapman",
+          "first_release_date": "1988-04-05",
+          "type": "Album"
+        },
+        {
+          "title": "Where You Live",
+          "first_release_date": "2005-09-05",
+          "type": "Album"
+        },
+        {
+          "title": "Telling Stories",
+          "first_release_date": "2000-02-14",
+          "type": "Album"
+        },
+        {
+          "title": "4 Years Selection",
+          "first_release_date": "2021-05-13",
+          "type": "Album"
+        }
+      ]
+    },
+    {
+      "artist": "Train",
+      "musicbrainz_id": "bfd5aec5-62a2-4560-a316-7c46c17babda",
+      "status": "matched",
+      "missing": [
+        {
+          "title": "Train Does Led Zeppelin Ⅱ",
+          "first_release_date": "2016-02-12",
+          "type": "Album"
+        },
+        {
+          "title": "Drops of Jupiter",
+          "first_release_date": "2001-03-27",
+          "type": "Album"
+        },
+        {
+          "title": "For Me, It’s You",
+          "first_release_date": "2006-01-31",
+          "type": "Album"
+        },
+        {
+          "title": "Save Me, San Francisco",
+          "first_release_date": "2009-10-26",
+          "type": "Album"
+        },
+        {
+          "title": "Christmas In Tahoe",
+          "first_release_date": "2013-11-13",
+          "type": "Album"
+        },
+        {
+          "title": "Bulletproof Picasso",
+          "first_release_date": "2014-09-12",
+          "type": "Album"
+        },
+        {
+          "title": "a girl a bottle a boat",
+          "first_release_date": "2016",
+          "type": "Album"
+        },
+        {
+          "title": "California 37",
+          "first_release_date": "2012-04-13",
+          "type": "Album"
+        },
+        {
+          "title": "AM Gold",
+          "first_release_date": "2022-05-20",
+          "type": "Album"
+        },
+        {
+          "title": "My Private Nation",
+          "first_release_date": "2003-06-03",
+          "type": "Album"
+        }
+      ]
+    },
+    {
+      "artist": "Vertical Horizon",
+      "musicbrainz_id": "e25216bf-b0ac-4bd3-bc5a-1f82a7d0274f",
+      "status": "matched",
+      "missing": [
+        {
+          "title": "Echoes From the Underground",
+          "first_release_date": "2013-10-08",
+          "type": "Album"
+        },
+        {
+          "title": "There and Back Again",
+          "first_release_date": "1992-10",
+          "type": "Album"
+        },
+        {
+          "title": "Running on Ice",
+          "first_release_date": "1995-04-07",
+          "type": "Album"
+        },
+        {
+          "title": "The Lost Mile",
+          "first_release_date": "2018-02-23",
+          "type": "Album"
+        },
+        {
+          "title": "Burning the Days",
+          "first_release_date": "2009-09-22",
+          "type": "Album"
+        },
+        {
+          "title": "Go",
+          "first_release_date": "2003-09-23",
+          "type": "Album"
+        },
+        {
+          "title": "Vertical Horizon Live at Ziggy's on 1999-10-30",
+          "first_release_date": "1999-10-30",
+          "type": "Album"
+        },
+        {
+          "title": "Burning The Days [2008 Demos]",
+          "first_release_date": "2008",
+          "type": "Album"
+        },
+        {
+          "title": "Vertical Horizon Extras",
+          "first_release_date": "",
+          "type": "Album"
+        }
+      ]
+    }
+  ]
+}
