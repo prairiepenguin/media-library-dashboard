@@ -1,66 +1,45 @@
-# Music Library Manager
+# Media Library Dashboard
 
-A conservative, repeatable workflow for a WAV library:
+One private data pipeline and public read-only Streamlit dashboard for:
 
-- infer standard ID3 tags from the existing `Artist/Album/Track.wav` layout;
-- generate a JSON inventory that changes only when the library changes;
-- compare owned albums with MusicBrainz release groups;
-- publish the generated catalog as a read-only Streamlit app.
+- Plex movies, including preserved Blu-ray and DVD ownership fields;
+- Plex albums, genres, formats, sizes, durations, and artwork references;
+- the local lossless WAV inventory;
+- missing studio albums from MusicBrainz.
 
-## Setup
+No Plex token, absolute media path, or audio/video file is committed. Generated inventory paths are relative to the music root.
 
-```bash
-cd /home/jacob/music-library-manager
-python3 -m venv .venv
-.venv/bin/pip install -e '.[dev]'
+## Windows setup on the backup drive
+
+Open PowerShell in the project folder:
+
+```powershell
+py -m venv .venv
+.venv\Scripts\pip.exe install -e .
+$env:PLEX_TOKEN = "your-token"
+.venv\Scripts\media-library-sync.exe --music-root "M:\"
+.venv\Scripts\streamlit.exe run app.py
 ```
 
-## Safe first run
+The sync also understands the token saved by the older MovieDB updater in `%USERPROFILE%\.plex_movie_exporter.json`.
 
-Generate the inventory (this never edits music):
+## GitHub and nightly publishing
 
-```bash
-.venv/bin/music-library scan /mnt/TheBackup/Music
+Create an empty private GitHub repository, set it as this repository's `origin`, and make one initial push. Ensure Git credentials work non-interactively on the Windows computer. Then run:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\install_nightly_task.ps1
 ```
 
-Preview WAV tag changes (also read-only):
+The task runs daily at 2:00 AM, refreshes all four generated catalog files, and pushes only when their contents change. The computer and backup drive must be available. Plex must be reachable.
 
-```bash
-.venv/bin/music-library tag /mnt/TheBackup/Music
+Deploy `app.py` on Streamlit Community Cloud from the same private repository for an always-available read-only dashboard.
+
+## Metadata writes
+
+Nightly sync is read-only toward media files. WAV metadata editing remains an explicit manual operation:
+
+```powershell
+.venv\Scripts\music-library.exe tag "M:\"       # preview
+.venv\Scripts\music-library.exe tag "M:\" --apply
 ```
-
-Review the preview count. To write only missing tags, make sure the backup is current and run:
-
-```bash
-.venv/bin/music-library tag /mnt/TheBackup/Music --apply
-```
-
-Existing tag values are preserved. `--overwrite` is deliberately separate and should only be used after reviewing the inferred data.
-
-The tagger supports both standard RIFF/WAVE files and this library's ID3-prefixed WAV files. It does not convert audio or rename files.
-
-## Missing-album catalog
-
-MusicBrainz requires a descriptive User-Agent containing contact information. The project is configured with `jacobingalls@outlook.com`, so the refresh command is:
-
-```bash
-.venv/bin/music-library catalog
-```
-
-The first refresh is intentionally slow because MusicBrainz permits roughly one request per second. The catalog compares studio release groups of type `Album`; compilations, live releases, soundtracks, EPs, and other secondary types are excluded to reduce noise. A top-level `Soundtracks` collection is not treated as an artist.
-
-## Streamlit
-
-```bash
-.venv/bin/streamlit run app.py
-```
-
-Commit `data/inventory.json` and `data/missing_albums.json` to GitHub. Streamlit Community Cloud can then run `app.py` from that repository. The hosted app is read-only: it cannot see `/mnt/TheBackup/Music`, so scans and tag writes must run on the machine where the backup is mounted.
-
-The committed inventory contains relative library paths only; it does not publish `/mnt` paths or audio files. GitHub Actions runs the test suite on every push and pull request.
-
-After adding music, rerun `scan`; rerun `catalog` when you want to refresh missing albums. A later phase can automate the local scan/commit/push after we choose the desired schedule and GitHub repository.
-
-## Metadata policy
-
-The first version writes only metadata it can infer reliably: artist, album artist, album, title, track number/total, disc number, and year when encoded in the album folder. Genre, exact release date, MusicBrainz IDs, and cover art require matching an exact release and are intentionally not guessed.
