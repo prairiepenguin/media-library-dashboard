@@ -255,26 +255,13 @@ def apply_random_background(cache: dict[str, dict[str, Any]], music: pd.DataFram
         f"""
         <style>
         [data-testid="stAppViewContainer"] {{
-            background: transparent;
-        }}
-        [data-testid="stAppViewContainer"]::before {{
-            content: "";
-            position: fixed;
-            inset: -18px;
-            z-index: -2;
-            background-image: url("{background}");
+            background-image:
+                linear-gradient(rgba(8, 10, 16, 0.80), rgba(8, 10, 16, 0.80)),
+                url("{background}");
             background-position: center;
             background-size: cover;
             background-repeat: no-repeat;
-            filter: blur(7px) saturate(0.8);
-            transform: scale(1.04);
-        }}
-        [data-testid="stAppViewContainer"]::after {{
-            content: "";
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            background: rgba(8, 10, 16, 0.78);
+            background-attachment: fixed;
         }}
         [data-testid="stMainBlockContainer"] {{
             background: rgba(15, 18, 25, 0.50);
