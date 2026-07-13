@@ -14,7 +14,7 @@ import requests
 import streamlit as st
 
 
-APP_TITLE = "Media Library Dashboard"
+APP_TITLE = "Millennial Antiquing"
 PROJECT_ROOT = Path(__file__).resolve().parent
 DATA_PATH = PROJECT_ROOT / "data"
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
@@ -939,7 +939,7 @@ def render_everything_search(movies: pd.DataFrame, music: pd.DataFrame) -> None:
             year = f" ({album['Year']})" if album["Year"] else ""
             st.write(f"💿 {album['Artist']} — {album['Album']}{year}")
     if movie_matches.empty and music_matches.empty:
-        st.info("Nothing in Millenial Antiquing matches that search yet.")
+        st.info("Nothing in Millennial Antiquing matches that search yet.")
 
 
 def filter_music(df: pd.DataFrame) -> pd.DataFrame:
@@ -1248,7 +1248,7 @@ def sync_with_plex() -> str:
 
 
 def main() -> None:
-    st.title("📼 Media Library Dashboard")
+    st.title("📼 Millennial Antiquing")
     st.caption(
         "Your movies and music, collected in one searchable cabinet."
     )
@@ -1268,7 +1268,7 @@ def main() -> None:
     cache = load_cache(cache_path)
 
     view = st.segmented_control(
-        "Navigate Millenial Antiquing",
+        "Navigate Millennial Antiquing",
         ["Home", "Movies", "Movie Stats", "Music", "Music Stats"],
         default="Home",
         label_visibility="collapsed",
