@@ -6,6 +6,7 @@ import subprocess
 from pathlib import Path
 
 from .catalog import missing_albums
+from .cover_art import enrich_music_csv
 from .plex_export import connect, export
 from .scanner import scan
 from .storage import write_inventory
@@ -34,6 +35,11 @@ def main() -> None:
         (data / "missing_albums.json").write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     movie_count, album_count = export(connect(), data / "movies.csv", data / "plex_music.csv")
     print(f"Exported {movie_count:,} movies and {album_count:,} Plex albums")
+    matched_covers, queried_covers = enrich_music_csv(
+        data / "plex_music.csv", data / "musicbrainz_artwork.json",
+        os.environ.get("MUSICBRAINZ_USER_AGENT", "JacobMediaLibrary/1.0 jacobingalls@outlook.com"),
+    )
+    print(f"Matched {matched_covers:,} album covers ({queried_covers:,} new MusicBrainz lookups)")
     if args.push:
         run(["git", "add", "data"], args.project)
         changed = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=args.project).returncode != 0

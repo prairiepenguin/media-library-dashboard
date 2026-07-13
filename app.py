@@ -185,7 +185,9 @@ def get_plex_access() -> tuple[str, str]:
 
 
 @st.cache_data(show_spinner=False, ttl=3600)
-def fetch_plex_artwork(base_url: str, artwork: str, token: str) -> bytes | None:
+def fetch_plex_artwork(base_url: str, artwork: str, token: str) -> bytes | str | None:
+    if artwork.startswith(("https://", "http://")):
+        return artwork
     local_path = PROJECT_ROOT / artwork
     if artwork and local_path.is_file():
         try:
