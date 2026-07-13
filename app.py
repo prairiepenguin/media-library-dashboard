@@ -1256,19 +1256,6 @@ def main() -> None:
     csv_path = str(DEFAULT_CSV_PATH)
     cache_path = DEFAULT_CACHE_PATH
 
-    status_col, update_col = st.columns([5, 1])
-    if update_col.button(
-        "Sync with Plex",
-        use_container_width=True,
-        help="Refresh both movies and music using your saved Plex connection",
-    ):
-        try:
-            with st.spinner("Opening the cabinet and checking Plex..."):
-                message = sync_with_plex()
-            status_col.success(message)
-        except Exception as exc:
-            status_col.error(f"Plex sync failed: {exc}")
-
     token, api_key = get_tmdb_credentials()
 
     try:
@@ -1282,7 +1269,7 @@ def main() -> None:
 
     view = st.segmented_control(
         "Navigate Millenial Antiquing",
-        ["Home", "Movies", "Music", "Music Stats", "Trends", "Decades", "Genres", "Table"],
+        ["Home", "Movies", "Music", "Music Stats", "Trends"],
         default="Home",
         label_visibility="collapsed",
         key="main_navigation",
@@ -1307,22 +1294,20 @@ def main() -> None:
     elif view == "Music Stats":
         render_music_stats(music)
     elif view == "Trends":
-        movie_trends, music_trends = st.tabs(["🎬 Movie Trends", "🎵 Music Trends"])
+        movie_trends, decades, genres, music_trends = st.tabs(
+            ["🎬 Movie Overview", "📅 Decades", "🎭 Genres", "🎵 Music"]
+        )
         with movie_trends:
             render_metadata_sync(movies, token, api_key, cache_path, cache)
             render_trends(movies, cache)
+        with decades:
+            render_metadata_sync(movies, token, api_key, cache_path, cache)
+            render_decades(movies, cache)
+        with genres:
+            render_metadata_sync(movies, token, api_key, cache_path, cache)
+            render_genres(movies, cache)
         with music_trends:
             render_music_trends(music)
-    elif view == "Decades":
-        render_metadata_sync(movies, token, api_key, cache_path, cache)
-        render_decades(movies, cache)
-    elif view == "Genres":
-        render_metadata_sync(movies, token, api_key, cache_path, cache)
-        render_genres(movies, cache)
-    else:
-        with st.expander("Search, filter, and sort", expanded=True):
-            filtered = filter_movies(movies)
-        render_table(filtered)
 
 
 if __name__ == "__main__":
