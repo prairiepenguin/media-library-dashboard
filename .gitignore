@@ -1,6 +1,7 @@
 .venv/
 nightly-sync.log
 .streamlit/secrets.toml
+LOCAL_PROJECT_NOTES.md
 __pycache__/
 *.py[cod]
 *.egg-info/
