@@ -1245,59 +1245,6 @@ def render_music_trends(music: pd.DataFrame) -> None:
         st.line_chart(releases.rename("Albums"))
 
 
-def duplicate_key(value: Any) -> str:
-    text = str(value or "").casefold()
-    text = re.sub(r"\b(19|20)\d{2}\b", " ", text)
-    text = re.sub(
-        r"\b(4k|uhd|blu[ -]?ray|dvd|digital|extended|unrated|director'?s cut|special|collector'?s|deluxe|expanded|remaster(?:ed)?|anniversary|edition)\b",
-        " ", text,
-    )
-    return re.sub(r"[^a-z0-9]+", " ", text).strip()
-
-
-def render_movie_duplicates(movies: pd.DataFrame) -> None:
-    st.subheader("Potential movie duplicates")
-    view = movies.copy()
-    view["Match key"] = view["Movie"].map(duplicate_key)
-    variants = view[view.groupby("Match key")["Movie"].transform("nunique") > 1]
-    overlap = view[view["Digital Owned"] & (view["Bluray Owned"] | view["DVD Owned"])]
-    metrics = st.columns(3)
-    metrics[0].metric("Possible duplicate titles", f"{variants['Match key'].nunique():,}")
-    metrics[1].metric("Digital + physical", f"{len(overlap):,}")
-    metrics[2].metric("Multiple physical formats", f"{int((view['Bluray Owned'] & view['DVD Owned']).sum()):,}")
-    if variants.empty:
-        st.success("No likely duplicate or alternate-edition movie titles found.")
-    else:
-        st.caption("Names are compared after removing format, year, and edition wording. Review before deleting anything.")
-        st.dataframe(variants[["Movie", "Digital", "Bluray", "DVD", "Type", "File Size"]], width="stretch", hide_index=True)
-    st.markdown("#### Owned digitally and physically")
-    if overlap.empty:
-        st.info("No digital/physical overlaps found.")
-    else:
-        st.dataframe(overlap[["Movie", "Digital", "Bluray", "DVD", "Type", "File Size"]], width="stretch", hide_index=True)
-
-
-def render_music_duplicates(music: pd.DataFrame) -> None:
-    st.subheader("Potential album duplicates")
-    if music.empty:
-        st.info("Sync Plex music to check for duplicates.")
-        return
-    view = music.copy()
-    view["Artist key"] = view["Artist"].map(duplicate_key)
-    view["Album key"] = view["Album"].map(duplicate_key)
-    group = ["Artist key", "Album key"]
-    variants = view[view.groupby(group)["Album"].transform("nunique") > 1]
-    exact = view[view.duplicated(["Artist key", "Album key"], keep=False)]
-    metrics = st.columns(2)
-    metrics[0].metric("Possible duplicate albums", f"{variants.groupby(group).ngroups if not variants.empty else 0:,}")
-    metrics[1].metric("Repeated normalized entries", f"{exact.groupby(group).ngroups if not exact.empty else 0:,}")
-    if variants.empty and exact.empty:
-        st.success("No likely duplicate or alternate-edition albums found.")
-        return
-    st.caption("Album names are compared per artist after removing format, year, remaster, deluxe, and edition wording.")
-    st.dataframe((variants if not variants.empty else exact)[["Artist", "Album", "Year", "Tracks", "Type", "File Size"]], width="stretch", hide_index=True)
-
-
 def sync_with_plex() -> str:
     from music_library.plex_export import connect, export
     movie_count, album_count = export(connect(), DEFAULT_CSV_PATH, DEFAULT_MUSIC_CSV_PATH)
@@ -1349,8 +1296,8 @@ def main() -> None:
             cache,
         )
     elif view == "Movie Stats":
-        movie_trends, decades, genres, duplicates = st.tabs(
-            ["🎬 Overview", "📅 Decades", "🎭 Genres", "♻️ Duplicates"]
+        movie_trends, decades, genres = st.tabs(
+            ["🎬 Overview", "📅 Decades", "🎭 Genres"]
         )
         with movie_trends:
             render_metadata_sync(movies, token, api_key, cache_path, cache)
@@ -1361,18 +1308,14 @@ def main() -> None:
         with genres:
             render_metadata_sync(movies, token, api_key, cache_path, cache)
             render_genres(movies, cache)
-        with duplicates:
-            render_movie_duplicates(movies)
     elif view == "Music":
         render_music(music)
     elif view == "Music Stats":
-        overview, trends, duplicates = st.tabs(["📊 Collection Overview", "📈 Trends", "♻️ Duplicates"])
+        overview, trends = st.tabs(["📊 Collection Overview", "📈 Trends"])
         with overview:
             render_music_stats(music)
         with trends:
             render_music_trends(music)
-        with duplicates:
-            render_music_duplicates(music)
 
 
 if __name__ == "__main__":
