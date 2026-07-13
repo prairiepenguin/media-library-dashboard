@@ -35,7 +35,7 @@ def main() -> None:
     movie_count, album_count = export(connect(), data / "movies.csv", data / "plex_music.csv")
     print(f"Exported {movie_count:,} movies and {album_count:,} Plex albums")
     if args.push:
-        run(["git", "add", "data/inventory.json", "data/missing_albums.json", "data/movies.csv", "data/plex_music.csv"], args.project)
+        run(["git", "add", "data"], args.project)
         changed = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=args.project).returncode != 0
         if changed:
             run(["git", "commit", "-m", "Refresh media catalog"], args.project)

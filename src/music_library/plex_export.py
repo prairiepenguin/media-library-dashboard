@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 import csv
+import hashlib
 import json
 import os
 from pathlib import Path
 
+import requests
 from plexapi.server import PlexServer
 
 MOVIE_FIELDS = ["Movie", "Digital", "Type", "File Size", "Bluray", "DVD"]
@@ -52,6 +54,28 @@ def _write_csv(path: Path, fields: list[str], rows: list[dict[str, str]]) -> Non
     temporary.replace(path)
 
 
+def _cache_album_art(plex: PlexServer, music_path: Path, artist: str, album: str, artwork: str) -> str:
+    if not artwork:
+        return ""
+    name = hashlib.sha256(f"{artist}\0{album}".encode()).hexdigest()[:20] + ".jpg"
+    folder = music_path.parent / "album_art"
+    destination = folder / name
+    if not destination.exists():
+        try:
+            response = requests.get(
+                f"{str(plex._baseurl).rstrip('/')}{artwork}",
+                params={"X-Plex-Token": plex._token}, timeout=30,
+            )
+            response.raise_for_status()
+            folder.mkdir(parents=True, exist_ok=True)
+            temporary = destination.with_suffix(".tmp")
+            temporary.write_bytes(response.content)
+            temporary.replace(destination)
+        except (requests.RequestException, OSError):
+            return artwork
+    return str(destination.relative_to(music_path.parent.parent))
+
+
 def connect() -> PlexServer:
     url = os.environ.get("PLEX_URL", "http://192.168.68.69:32400")
     token = os.environ.get("PLEX_TOKEN", "").strip()
@@ -92,12 +116,15 @@ def export(plex: PlexServer, movie_path: Path, music_path: Path) -> tuple[int, i
                     kinds.update(track_kinds); size += track_size
                 genres = sorted(str(g.tag).strip() for g in (getattr(album, "genres", None) or []) if str(g.tag).strip())
                 minutes = duration // 60000
-                albums.append({"Artist": str(getattr(album, "parentTitle", "Unknown Artist")),
-                               "Album": str(getattr(album, "title", "Untitled Album")),
+                artist_name = str(getattr(album, "parentTitle", "Unknown Artist"))
+                album_name = str(getattr(album, "title", "Untitled Album"))
+                artwork = str(getattr(album, "thumb", "") or "")
+                albums.append({"Artist": artist_name,
+                               "Album": album_name,
                                "Year": str(getattr(album, "year", "") or ""), "Genres": ", ".join(genres),
                                "Tracks": str(len(tracks)), "Duration": f"{minutes // 60}h {minutes % 60}m" if minutes >= 60 else f"{minutes}m",
                                "Type": ", ".join(sorted(kinds)), "File Size": human_size(size) if size else "",
-                               "Artwork": str(getattr(album, "thumb", "") or "")})
+                               "Artwork": _cache_album_art(plex, music_path, artist_name, album_name, artwork)})
     movies.extend(row for key, row in existing.items() if key not in matched)
     movies.sort(key=lambda row: row["Movie"].casefold())
     albums.sort(key=lambda row: (row["Artist"].casefold(), row["Album"].casefold()))

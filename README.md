@@ -35,6 +35,8 @@ The task runs daily at 2:00 AM, refreshes all four generated catalog files, and 
 
 Deploy `app.py` on Streamlit Community Cloud from the same private repository for an always-available read-only dashboard.
 
+Movie posters use public TMDB image URLs. During each local Plex sync, album covers are downloaded into `data/album_art` and committed with the generated catalogs. The hosted dashboard reads those cached files and never needs network access to the local Plex server. If an album has not yet been cached, the hosted app shows a placeholder until the next successful local sync.
+
 ## Metadata writes
 
 Nightly sync is read-only toward media files. WAV metadata editing remains an explicit manual operation:
