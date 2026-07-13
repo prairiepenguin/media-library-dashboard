@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import random
 import re
 import sys
 from collections import Counter
@@ -232,6 +233,59 @@ def load_cache(cache_path: Path) -> dict[str, dict[str, Any]]:
         return json.loads(cache_path.read_text(encoding="utf-8"))
     except (FileNotFoundError, json.JSONDecodeError, OSError):
         return {}
+
+
+def apply_random_background(cache: dict[str, dict[str, Any]], music: pd.DataFrame) -> None:
+    candidates = [
+        str(item.get("poster_url", "")) for item in cache.values()
+        if str(item.get("poster_url", "")).startswith("https://")
+        and item.get("poster_url") != PLACEHOLDER_POSTER
+    ]
+    if not music.empty:
+        candidates.extend(
+            str(url) for url in music["Artwork"]
+            if str(url).startswith("https://")
+        )
+    if not candidates:
+        return
+    if "background_artwork" not in st.session_state:
+        st.session_state.background_artwork = random.choice(candidates)
+    background = str(st.session_state.background_artwork).replace('"', "%22")
+    st.markdown(
+        f"""
+        <style>
+        [data-testid="stAppViewContainer"] {{
+            background: transparent;
+        }}
+        [data-testid="stAppViewContainer"]::before {{
+            content: "";
+            position: fixed;
+            inset: -18px;
+            z-index: -2;
+            background-image: url("{background}");
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            filter: blur(7px) saturate(0.8);
+            transform: scale(1.04);
+        }}
+        [data-testid="stAppViewContainer"]::after {{
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: rgba(8, 10, 16, 0.78);
+        }}
+        [data-testid="stMainBlockContainer"] {{
+            background: rgba(15, 18, 25, 0.50);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            backdrop-filter: blur(5px);
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
 
 
 def save_cache(cache_path: Path, cache: dict[str, dict[str, Any]]) -> None:
@@ -1274,6 +1328,7 @@ def main() -> None:
     music = load_music(str(DEFAULT_MUSIC_CSV_PATH))
 
     cache = load_cache(cache_path)
+    apply_random_background(cache, music)
 
     view = st.segmented_control(
         "Navigate Millennial Antiquing",
