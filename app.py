@@ -259,9 +259,10 @@ def apply_random_background(cache: dict[str, dict[str, Any]], music: pd.DataFram
                 linear-gradient(rgba(8, 10, 16, 0.80), rgba(8, 10, 16, 0.80)),
                 url("{background}");
             background-position: center;
-            background-size: cover;
+            background-size: 100% 100%, contain;
             background-repeat: no-repeat;
             background-attachment: fixed;
+            background-color: #080a10;
         }}
         [data-testid="stMainBlockContainer"] {{
             background: rgba(15, 18, 25, 0.50);
