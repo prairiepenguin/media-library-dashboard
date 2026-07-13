@@ -1299,9 +1299,6 @@ def sync_with_plex() -> str:
 
 def main() -> None:
     st.title("📼 Millennial Antiquing")
-    st.caption(
-        "Your movies and music, collected in one searchable cabinet."
-    )
 
     csv_path = str(DEFAULT_CSV_PATH)
     cache_path = DEFAULT_CACHE_PATH
