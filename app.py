@@ -1193,6 +1193,52 @@ def render_music_stats(music: pd.DataFrame) -> None:
                  column_config={"Collection %": st.column_config.ProgressColumn(format="%.1f%%", min_value=0, max_value=100)})
 
 
+def render_music_trends(music: pd.DataFrame) -> None:
+    st.subheader("Music collection trends")
+    if music.empty:
+        st.info("Sync Plex music to see music trends.")
+        return
+    tracks = pd.to_numeric(music["Tracks"], errors="coerce").fillna(0)
+    years = pd.to_numeric(music["Year"], errors="coerce")
+    metrics = st.columns(4)
+    metrics[0].metric("Albums", f"{len(music):,}")
+    metrics[1].metric("Artists", f"{music['Artist'].nunique():,}")
+    metrics[2].metric("Tracks", f"{int(tracks.sum()):,}")
+    metrics[3].metric("Storage", human_size(int(music["File Size Bytes"].sum())))
+
+    artist_col, storage_col = st.columns(2)
+    with artist_col:
+        st.markdown("#### Albums by artist")
+        album_counts = music.groupby("Artist").size().sort_values(ascending=False).head(15)
+        st.bar_chart(album_counts.rename("Albums"), horizontal=True)
+    with storage_col:
+        st.markdown("#### Storage by artist")
+        storage = music.groupby("Artist")["File Size Bytes"].sum().sort_values(ascending=False).head(15)
+        st.bar_chart((storage / 1024**3).rename("GB"), horizontal=True)
+
+    genre_col, decade_col = st.columns(2)
+    with genre_col:
+        st.markdown("#### Albums by genre")
+        genres = Counter(genre.strip() for value in music["Genres"] for genre in str(value).split(",") if genre.strip())
+        if genres:
+            st.bar_chart(pd.Series(genres, name="Albums").sort_values(ascending=False).head(15))
+        else:
+            st.info("No genres are currently assigned in Plex.")
+    with decade_col:
+        st.markdown("#### Albums by decade")
+        known_years = years.dropna().astype(int)
+        if not known_years.empty:
+            decades = known_years.map(lambda year: f"{year // 10 * 10}s").value_counts().sort_index()
+            st.bar_chart(decades.rename("Albums"))
+        else:
+            st.info("No album years are currently available.")
+
+    st.markdown("#### Release timeline")
+    if years.notna().any():
+        releases = years.dropna().astype(int).value_counts().sort_index()
+        st.line_chart(releases.rename("Albums"))
+
+
 def sync_with_plex() -> str:
     from music_library.plex_export import connect, export
     movie_count, album_count = export(connect(), DEFAULT_CSV_PATH, DEFAULT_MUSIC_CSV_PATH)
@@ -1236,7 +1282,7 @@ def main() -> None:
 
     view = st.segmented_control(
         "Navigate Millenial Antiquing",
-        ["Home", "Movies", "Music", "Music Stats", "Lossless", "Missing Albums", "Trends", "Decades", "Genres", "Table"],
+        ["Home", "Movies", "Music", "Music Stats", "Trends", "Decades", "Genres", "Table"],
         default="Home",
         label_visibility="collapsed",
         key="main_navigation",
@@ -1260,13 +1306,13 @@ def main() -> None:
         render_music(music)
     elif view == "Music Stats":
         render_music_stats(music)
-    elif view == "Lossless":
-        render_lossless_collection()
-    elif view == "Missing Albums":
-        render_missing_albums()
     elif view == "Trends":
-        render_metadata_sync(movies, token, api_key, cache_path, cache)
-        render_trends(movies, cache)
+        movie_trends, music_trends = st.tabs(["🎬 Movie Trends", "🎵 Music Trends"])
+        with movie_trends:
+            render_metadata_sync(movies, token, api_key, cache_path, cache)
+            render_trends(movies, cache)
+        with music_trends:
+            render_music_trends(music)
     elif view == "Decades":
         render_metadata_sync(movies, token, api_key, cache_path, cache)
         render_decades(movies, cache)
