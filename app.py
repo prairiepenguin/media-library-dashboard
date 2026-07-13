@@ -1269,7 +1269,7 @@ def main() -> None:
 
     view = st.segmented_control(
         "Navigate Millenial Antiquing",
-        ["Home", "Movies", "Music", "Music Stats", "Trends"],
+        ["Home", "Movies", "Movie Stats", "Music", "Music Stats"],
         default="Home",
         label_visibility="collapsed",
         key="main_navigation",
@@ -1289,13 +1289,9 @@ def main() -> None:
             cache_path,
             cache,
         )
-    elif view == "Music":
-        render_music(music)
-    elif view == "Music Stats":
-        render_music_stats(music)
-    elif view == "Trends":
-        movie_trends, decades, genres, music_trends = st.tabs(
-            ["🎬 Movie Overview", "📅 Decades", "🎭 Genres", "🎵 Music"]
+    elif view == "Movie Stats":
+        movie_trends, decades, genres = st.tabs(
+            ["🎬 Overview", "📅 Decades", "🎭 Genres"]
         )
         with movie_trends:
             render_metadata_sync(movies, token, api_key, cache_path, cache)
@@ -1306,7 +1302,13 @@ def main() -> None:
         with genres:
             render_metadata_sync(movies, token, api_key, cache_path, cache)
             render_genres(movies, cache)
-        with music_trends:
+    elif view == "Music":
+        render_music(music)
+    elif view == "Music Stats":
+        overview, trends = st.tabs(["📊 Collection Overview", "📈 Trends"])
+        with overview:
+            render_music_stats(music)
+        with trends:
             render_music_trends(music)
 
 
