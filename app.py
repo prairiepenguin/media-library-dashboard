@@ -4,6 +4,7 @@ import json
 import os
 import re
 import sys
+from collections import Counter
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any
@@ -1119,6 +1120,79 @@ def render_missing_albums() -> None:
     st.dataframe(missing, width="stretch", hide_index=True)
 
 
+def render_music_stats(music: pd.DataFrame) -> None:
+    inventory, catalog = load_local_catalog()
+    albums = inventory.get("albums", [])
+    tracks = inventory.get("tracks", [])
+    owned = Counter(album["artist"] for album in albums)
+    track_counts = Counter(track["artist"] for track in tracks)
+    catalog_by_artist = {item["artist"]: item for item in catalog.get("artists", [])}
+    rows: list[dict[str, Any]] = []
+    for artist in sorted(owned, key=str.casefold):
+        item = catalog_by_artist.get(artist, {})
+        excluded = item.get("status") == "excluded_collection"
+        missing = len(item.get("missing", []))
+        total = owned[artist] + missing
+        rows.append({
+            "Artist": artist,
+            "Owned": owned[artist],
+            "Missing": None if excluded else missing,
+            "Collection %": None if excluded or not total else round(100 * owned[artist] / total, 1),
+            "Tracks": track_counts[artist],
+        })
+    stats = pd.DataFrame(rows)
+    valid = stats.dropna(subset=["Missing", "Collection %"]) if not stats.empty else stats
+    total_owned = int(valid["Owned"].sum()) if not valid.empty else len(albums)
+    total_missing = int(valid["Missing"].sum()) if not valid.empty else 0
+    total_known = total_owned + total_missing
+    coverage = 100 * total_owned / total_known if total_known else 0
+    plex_tracks = int(pd.to_numeric(music["Tracks"], errors="coerce").fillna(0).sum()) if not music.empty else len(tracks)
+    metrics = st.columns(6)
+    metrics[0].metric("Artists", f"{len(owned):,}")
+    metrics[1].metric("Owned albums", f"{len(albums):,}")
+    metrics[2].metric("Missing albums", f"{total_missing:,}")
+    metrics[3].metric("Overall coverage", f"{coverage:.1f}%")
+    metrics[4].metric("Tracks", f"{plex_tracks:,}")
+    metrics[5].metric("Music storage", human_size(int(music["File Size Bytes"].sum())) if not music.empty else human_size(sum(int(t.get("size", 0)) for t in tracks)))
+    if valid.empty:
+        st.info("Run the local scan and MusicBrainz catalog refresh to calculate collection coverage.")
+        return
+
+    chart, insights = st.columns([2, 1])
+    with chart:
+        st.subheader("Collection completion by artist")
+        st.bar_chart(valid.sort_values("Collection %").set_index("Artist")[["Collection %"]], horizontal=True,
+                     height=max(420, len(valid) * 30))
+    with insights:
+        st.subheader("Collection insights")
+        fullest = valid.sort_values(["Collection %", "Owned"], ascending=False).iloc[0]
+        st.success(f"Strongest: **{fullest['Artist']}** at **{fullest['Collection %']:.1f}%**")
+        st.markdown("**Closest to completing**")
+        closest = valid[valid["Missing"] > 0].sort_values(["Missing", "Collection %"], ascending=[True, False]).head(5)
+        for row in closest.itertuples():
+            st.write(f"{row.Artist}: {int(row.Missing)} album{'s' if row.Missing != 1 else ''} away")
+        st.markdown("**Biggest discovery opportunities**")
+        for row in valid.sort_values("Missing", ascending=False).head(5).itertuples():
+            st.write(f"{row.Artist}: {int(row.Missing)} missing")
+
+    years = [album.get("year") for album in albums if album.get("year")]
+    genre_col, decade_col = st.columns(2)
+    with genre_col:
+        st.subheader("Top Plex genres")
+        genres = Counter(genre.strip() for value in music.get("Genres", []) for genre in str(value).split(",") if genre.strip())
+        if genres:
+            st.bar_chart(pd.Series(genres, name="Albums").sort_values(ascending=False).head(12))
+    with decade_col:
+        st.subheader("Owned albums by decade")
+        if years:
+            decades = Counter(f"{int(year) // 10 * 10}s" for year in years)
+            st.bar_chart(pd.Series(decades, name="Albums").sort_index())
+
+    st.subheader("Artist statistics")
+    st.dataframe(stats, width="stretch", hide_index=True,
+                 column_config={"Collection %": st.column_config.ProgressColumn(format="%.1f%%", min_value=0, max_value=100)})
+
+
 def sync_with_plex() -> str:
     from music_library.plex_export import connect, export
     movie_count, album_count = export(connect(), DEFAULT_CSV_PATH, DEFAULT_MUSIC_CSV_PATH)
@@ -1162,7 +1236,7 @@ def main() -> None:
 
     view = st.segmented_control(
         "Navigate Millenial Antiquing",
-        ["Home", "Movies", "Music", "Lossless", "Missing Albums", "Trends", "Decades", "Genres", "Table"],
+        ["Home", "Movies", "Music", "Music Stats", "Lossless", "Missing Albums", "Trends", "Decades", "Genres", "Table"],
         default="Home",
         label_visibility="collapsed",
         key="main_navigation",
@@ -1184,6 +1258,8 @@ def main() -> None:
         )
     elif view == "Music":
         render_music(music)
+    elif view == "Music Stats":
+        render_music_stats(music)
     elif view == "Lossless":
         render_lossless_collection()
     elif view == "Missing Albums":
