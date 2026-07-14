@@ -1242,6 +1242,17 @@ def render_music(music: pd.DataFrame) -> None:
 
 def render_home_dashboard(movies: pd.DataFrame, music: pd.DataFrame) -> None:
     owned_movies = movies[movies["Any Owned"]]
+    if "home_shelf_seed" not in st.session_state:
+        st.session_state.home_shelf_seed = random.randrange(2**32)
+    shelf_seed = int(st.session_state.home_shelf_seed)
+    movie_shelf_items = owned_movies.sample(
+        n=min(5, len(owned_movies)),
+        random_state=shelf_seed,
+    )
+    music_shelf_items = music.sample(
+        n=min(5, len(music)),
+        random_state=(shelf_seed + 1) % (2**32),
+    )
     artists = int(music["Artist"].nunique()) if not music.empty else 0
     tracks = int(pd.to_numeric(music["Tracks"], errors="coerce").fillna(0).sum()) if not music.empty else 0
     movie_storage = int(movies["File Size Bytes"].sum())
@@ -1294,7 +1305,7 @@ def render_home_dashboard(movies: pd.DataFrame, music: pd.DataFrame) -> None:
     movie_shelf, music_shelf = st.columns(2, gap="large")
     with movie_shelf:
         st.caption("MOVIES")
-        for title in owned_movies["Movie"].head(5):
+        for title in movie_shelf_items["Movie"]:
             st.markdown(
                 "🎬 " + detail_link(str(title), movie=str(title)),
                 unsafe_allow_html=True,
@@ -1303,7 +1314,7 @@ def render_home_dashboard(movies: pd.DataFrame, music: pd.DataFrame) -> None:
             st.info("No owned movies are listed yet.")
     with music_shelf:
         st.caption("MUSIC")
-        for _, album in music.head(5).iterrows():
+        for _, album in music_shelf_items.iterrows():
             st.markdown(
                 "💿 "
                 + detail_link(
