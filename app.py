@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hmac
+import html
 import json
 import os
 import random
@@ -10,6 +11,7 @@ from collections import Counter
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlencode
 
 import pandas as pd
 import requests
@@ -81,6 +83,17 @@ CUSTOM_CSS = """
     .small-muted {
         font-size: 0.82rem;
         opacity: 0.68;
+    }
+
+    .detail-link {
+        color: inherit !important;
+        font-weight: 700;
+        text-decoration: none !important;
+    }
+
+    .detail-link:hover {
+        color: #f2b84b !important;
+        text-decoration: underline !important;
     }
 </style>
 """
@@ -471,7 +484,10 @@ def render_landing_search(
                 width="stretch",
             )
         with title_col:
-            st.markdown(f"#### {movie['Movie']}")
+            st.markdown(
+                "#### " + detail_link(str(movie["Movie"]), movie=str(movie["Movie"])),
+                unsafe_allow_html=True,
+            )
             year = metadata.get("year") or ""
             if year:
                 st.caption(year)
@@ -504,6 +520,121 @@ def owned_format_text(row: pd.Series) -> str:
         formats.append("DVD")
 
     return " • ".join(formats) if formats else "Not owned"
+
+
+def detail_link(label: str, **params: str) -> str:
+    url = "?" + urlencode(params)
+    return (
+        f'<a class="detail-link" href="{html.escape(url, quote=True)}">'
+        f'{html.escape(label)}</a>'
+    )
+
+
+def render_movie_detail(
+    movie: pd.Series,
+    token: str,
+    api_key: str,
+    cache_path: Path,
+    cache: dict[str, dict[str, Any]],
+) -> None:
+    st.markdown('[← Back to the collection](?)')
+    metadata = get_metadata(str(movie["Movie"]), token, api_key, cache_path, cache)
+    poster_col, info_col = st.columns([1, 2], gap="large")
+    with poster_col:
+        st.image(
+            metadata.get("poster_url") or PLACEHOLDER_POSTER,
+            use_container_width=True,
+        )
+    with info_col:
+        st.header(str(movie["Movie"]))
+        facts: list[str] = []
+        if metadata.get("year"):
+            facts.append(str(metadata["year"]))
+        if metadata.get("runtime"):
+            facts.append(f'{metadata["runtime"]} min')
+        if metadata.get("rating") is not None:
+            facts.append(f'★ {float(metadata["rating"]):.1f} TMDB')
+        if facts:
+            st.markdown(" · ".join(facts))
+        genres = metadata.get("genres") or []
+        if genres:
+            st.caption(" • ".join(genres))
+        overview = metadata.get("overview") or "No synopsis is available yet."
+        st.write(overview)
+        st.subheader("In your collection")
+        st.write(owned_format_text(movie))
+        if movie["Digital Owned"]:
+            digital_facts = [str(movie["Type"]), str(movie["File Size"])]
+            st.caption(" · ".join(fact for fact in digital_facts if fact))
+
+
+def render_album_detail(album: pd.Series, music: pd.DataFrame) -> None:
+    st.markdown('[← Back to the collection](?)')
+    artwork_col, info_col = st.columns([1, 2], gap="large")
+    with artwork_col:
+        artwork = fetch_plex_artwork("", str(album["Artwork"]), "")
+        st.image(
+            artwork or "https://placehold.co/500x500?text=Album+Art",
+            use_container_width=True,
+        )
+    with info_col:
+        st.header(str(album["Album"]))
+        st.markdown(detail_link(str(album["Artist"]), artist=str(album["Artist"])), unsafe_allow_html=True)
+        facts = [
+            str(album["Year"]),
+            f'{album["Tracks"]} tracks' if album["Tracks"] else "",
+            str(album["Duration"]),
+        ]
+        st.markdown(" · ".join(fact for fact in facts if fact))
+        if album["Genres"]:
+            st.caption(str(album["Genres"]))
+        st.subheader("In your collection")
+        collection_facts = [str(album["Type"]), str(album["File Size"])]
+        st.write(" · ".join(fact for fact in collection_facts if fact))
+
+    other_albums = music[
+        (music["Artist"].str.casefold() == str(album["Artist"]).casefold())
+        & (music["Album"].str.casefold() != str(album["Album"]).casefold())
+    ]
+    if not other_albums.empty:
+        st.divider()
+        st.subheader(f'More from {album["Artist"]}')
+        render_album_shelf(other_albums.head(6))
+
+
+def render_album_shelf(albums: pd.DataFrame) -> None:
+    columns = st.columns(min(6, len(albums)))
+    for column, (_, album) in zip(columns, albums.iterrows()):
+        with column:
+            artwork = fetch_plex_artwork("", str(album["Artwork"]), "")
+            st.image(artwork or "https://placehold.co/500x500?text=Album+Art", use_container_width=True)
+            st.markdown(
+                detail_link(
+                    str(album["Album"]),
+                    album=str(album["Album"]),
+                    artist=str(album["Artist"]),
+                ),
+                unsafe_allow_html=True,
+            )
+            if album["Year"]:
+                st.caption(str(album["Year"]))
+
+
+def render_artist_detail(artist: str, music: pd.DataFrame) -> None:
+    st.markdown('[← Back to the collection](?)')
+    albums = music[music["Artist"].str.casefold() == artist.casefold()]
+    st.header(artist)
+    if albums.empty:
+        st.warning("This artist is not in the current music catalog.")
+        return
+    tracks = int(pd.to_numeric(albums["Tracks"], errors="coerce").fillna(0).sum())
+    metrics = st.columns(3)
+    metrics[0].metric("Albums", f"{len(albums):,}")
+    metrics[1].metric("Tracks", f"{tracks:,}")
+    metrics[2].metric("Storage", human_size(int(albums["File Size Bytes"].sum())))
+    st.subheader("Albums in your collection")
+    for start in range(0, len(albums), 6):
+        render_album_shelf(albums.iloc[start:start + 6])
 
 
 def filter_movies(df: pd.DataFrame) -> pd.DataFrame:
@@ -895,7 +1026,7 @@ def render_movie_grid(
                     title_line = f"{title_line} ({year})"
 
                 st.markdown(
-                    f'<div class="movie-title">{title_line}</div>',
+                    f'<div class="movie-title">{detail_link(title_line, movie=str(movie["Movie"]))}</div>',
                     unsafe_allow_html=True,
                 )
 
@@ -999,7 +1130,10 @@ def render_everything_search(
                     use_container_width=True,
                 )
             with details_col:
-                st.markdown(f"**{movie['Movie']}**")
+                st.markdown(
+                    detail_link(str(movie["Movie"]), movie=str(movie["Movie"])),
+                    unsafe_allow_html=True,
+                )
                 facts = [str(metadata.get("year") or "")]
                 rating = metadata.get("rating")
                 if rating is not None:
@@ -1017,11 +1151,22 @@ def render_everything_search(
                     use_container_width=True,
                 )
             with details_col:
-                st.markdown(f"**{album['Album']}**")
+                st.markdown(
+                    detail_link(
+                        str(album["Album"]),
+                        album=str(album["Album"]),
+                        artist=str(album["Artist"]),
+                    ),
+                    unsafe_allow_html=True,
+                )
+                st.markdown(
+                    detail_link(str(album["Artist"]), artist=str(album["Artist"])),
+                    unsafe_allow_html=True,
+                )
                 st.caption(
                     " · ".join(
                         str(fact)
-                        for fact in (album["Artist"], album["Year"], album["Genres"])
+                        for fact in (album["Year"], album["Genres"])
                         if fact
                     )
                 )
@@ -1080,8 +1225,14 @@ def render_music(music: pd.DataFrame) -> None:
             with column:
                 artwork = fetch_plex_artwork(base_url, str(album["Artwork"]), token)
                 st.image(artwork or "https://placehold.co/500x500?text=Album+Art", use_container_width=True)
-                st.markdown(f'<div class="movie-title">{album["Album"]}</div>', unsafe_allow_html=True)
-                st.markdown(f'<div class="format-line">{album["Artist"]}</div>', unsafe_allow_html=True)
+                st.markdown(
+                    f'<div class="movie-title">{detail_link(str(album["Album"]), album=str(album["Album"]), artist=str(album["Artist"]))}</div>',
+                    unsafe_allow_html=True,
+                )
+                st.markdown(
+                    f'<div class="format-line">{detail_link(str(album["Artist"]), artist=str(album["Artist"]))}</div>',
+                    unsafe_allow_html=True,
+                )
                 facts = [str(value) for value in (album["Year"], f'{album["Tracks"]} tracks' if album["Tracks"] else "", album["Duration"]) if value]
                 if facts:
                     st.markdown(f'<div class="small-muted">{" · ".join(facts)}</div>', unsafe_allow_html=True)
@@ -1144,13 +1295,26 @@ def render_home_dashboard(movies: pd.DataFrame, music: pd.DataFrame) -> None:
     with movie_shelf:
         st.caption("MOVIES")
         for title in owned_movies["Movie"].head(5):
-            st.write(f"🎬 {title}")
+            st.markdown(
+                "🎬 " + detail_link(str(title), movie=str(title)),
+                unsafe_allow_html=True,
+            )
         if owned_movies.empty:
             st.info("No owned movies are listed yet.")
     with music_shelf:
         st.caption("MUSIC")
         for _, album in music.head(5).iterrows():
-            st.write(f"💿 **{album['Album']}** — {album['Artist']}")
+            st.markdown(
+                "💿 "
+                + detail_link(
+                    str(album["Album"]),
+                    album=str(album["Album"]),
+                    artist=str(album["Artist"]),
+                )
+                + " — "
+                + detail_link(str(album["Artist"]), artist=str(album["Artist"])),
+                unsafe_allow_html=True,
+            )
         if music.empty:
             st.info("No albums are listed yet. Sync with Plex to add them.")
 
@@ -1462,6 +1626,35 @@ def main() -> None:
 
     cache = load_cache(cache_path)
     apply_random_background(cache, music)
+
+    selected_movie = str(st.query_params.get("movie", "")).strip()
+    selected_album = str(st.query_params.get("album", "")).strip()
+    selected_artist = str(st.query_params.get("artist", "")).strip()
+
+    if selected_movie:
+        matches = movies[movies["Movie"].str.casefold() == selected_movie.casefold()]
+        if matches.empty:
+            st.warning("That movie is not in the current catalog.")
+        else:
+            render_movie_detail(
+                matches.iloc[0], token, api_key, cache_path, cache
+            )
+        return
+
+    if selected_album and selected_artist:
+        matches = music[
+            (music["Album"].str.casefold() == selected_album.casefold())
+            & (music["Artist"].str.casefold() == selected_artist.casefold())
+        ]
+        if matches.empty:
+            st.warning("That album is not in the current catalog.")
+        else:
+            render_album_detail(matches.iloc[0], music)
+        return
+
+    if selected_artist:
+        render_artist_detail(selected_artist, music)
+        return
 
     view = st.segmented_control(
         "Navigate Millennial Antiquing",
