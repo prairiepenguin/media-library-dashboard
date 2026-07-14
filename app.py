@@ -19,6 +19,9 @@ APP_TITLE = "Millennial Antiquing"
 PROJECT_ROOT = Path(__file__).resolve().parent
 DATA_PATH = PROJECT_ROOT / "data"
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
+BLOG_PATH = PROJECT_ROOT / "blog"
+
+from music_library.blog import BlogPost, load_posts
 DEFAULT_CSV_PATH = DATA_PATH / "movies.csv"
 DEFAULT_MUSIC_CSV_PATH = DATA_PATH / "plex_music.csv"
 DEFAULT_CACHE_PATH = DATA_PATH / "tmdb_cache.json"
@@ -1297,6 +1300,61 @@ def sync_with_plex() -> str:
     return f"Synced {movie_count:,} movies and {album_count:,} Plex albums."
 
 
+def render_blog_cover(post: BlogPost) -> None:
+    if not post.cover_image:
+        return
+    if post.cover_image.startswith(("https://", "http://")):
+        st.image(post.cover_image, width="stretch")
+        return
+    cover_path = (BLOG_PATH / post.cover_image).resolve()
+    try:
+        cover_path.relative_to(BLOG_PATH.resolve())
+    except ValueError:
+        st.warning("This post's cover image points outside the blog folder.")
+        return
+    if cover_path.is_file():
+        st.image(str(cover_path), width="stretch")
+
+
+def format_blog_date(value: Any) -> str:
+    return f"{value.strftime('%B')} {value.day}, {value.year}"
+
+
+def render_blog() -> None:
+    st.subheader("The Journal")
+    st.caption("Stories, discoveries, and notes from the collection.")
+    posts, errors = load_posts(BLOG_PATH)
+    if errors:
+        with st.expander(f"{len(errors)} post{'s' if len(errors) != 1 else ''} could not be loaded"):
+            for error in errors:
+                st.warning(error)
+    if not posts:
+        st.info("No journal posts have been published yet.")
+        return
+
+    selected_slug = st.query_params.get("post", "")
+    selected_index = next(
+        (index for index, post in enumerate(posts) if post.slug == selected_slug),
+        0,
+    )
+    selected = st.selectbox(
+        "Choose a post",
+        posts,
+        index=selected_index,
+        format_func=lambda post: f"{format_blog_date(post.published)} — {post.title}",
+        key="blog_post",
+    )
+    st.query_params["post"] = selected.slug
+    st.divider()
+    st.markdown(f"## {selected.title}")
+    details = format_blog_date(selected.published)
+    if selected.tags:
+        details += " · " + " · ".join(f"#{tag}" for tag in selected.tags)
+    st.caption(details)
+    render_blog_cover(selected)
+    st.markdown(selected.body)
+
+
 def main() -> None:
     st.title("📼 Millennial Antiquing")
 
@@ -1317,7 +1375,7 @@ def main() -> None:
 
     view = st.segmented_control(
         "Navigate Millennial Antiquing",
-        ["Home", "Movies", "Movie Stats", "Music", "Music Stats"],
+        ["Home", "Movies", "Movie Stats", "Music", "Music Stats", "Blog"],
         default="Home",
         label_visibility="collapsed",
         key="main_navigation",
@@ -1358,6 +1416,8 @@ def main() -> None:
             render_music_stats(music)
         with trends:
             render_music_trends(music)
+    elif view == "Blog":
+        render_blog()
 
 
 if __name__ == "__main__":
