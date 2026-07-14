@@ -95,6 +95,51 @@ CUSTOM_CSS = """
         color: #f2b84b !important;
         text-decoration: underline !important;
     }
+
+    .home-hero {
+        background:
+            linear-gradient(120deg, rgba(242, 184, 75, 0.18), transparent 55%),
+            rgba(10, 13, 20, 0.72);
+        border: 1px solid rgba(242, 184, 75, 0.28);
+        border-radius: 1.25rem;
+        padding: clamp(1.4rem, 4vw, 2.6rem);
+        margin: 0.5rem 0 1.5rem;
+        box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.22);
+    }
+
+    .home-eyebrow {
+        color: #f2b84b;
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+    }
+
+    .home-headline {
+        font-size: clamp(1.8rem, 4vw, 3.2rem);
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        line-height: 1.02;
+        margin: 0.5rem 0 0.65rem;
+        max-width: 760px;
+    }
+
+    .home-intro {
+        font-size: 1.02rem;
+        opacity: 0.78;
+        max-width: 680px;
+        margin-bottom: 1.25rem;
+    }
+
+    .hero-pill {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 999px;
+        display: inline-block;
+        font-size: 0.84rem;
+        margin: 0 0.4rem 0.4rem 0;
+        padding: 0.35rem 0.7rem;
+    }
 </style>
 """
 st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
@@ -1240,7 +1285,29 @@ def render_music(music: pd.DataFrame) -> None:
                     st.caption(album["Genres"])
 
 
-def render_home_dashboard(movies: pd.DataFrame, music: pd.DataFrame) -> None:
+def render_home_hero(movies: pd.DataFrame, music: pd.DataFrame) -> None:
+    owned_movies = int(movies["Any Owned"].sum())
+    artists = int(music["Artist"].nunique()) if not music.empty else 0
+    st.markdown(
+        f"""
+        <div class="home-hero">
+            <div class="home-eyebrow">Your personal media cabinet</div>
+            <div class="home-headline">Find an old favorite.<br>Unearth something forgotten.</div>
+            <div class="home-intro">Browse the movies and music you have collected, preserved, and kept within reach.</div>
+            <span class="hero-pill">🎬 {owned_movies:,} movies</span>
+            <span class="hero-pill">💿 {len(music):,} albums</span>
+            <span class="hero-pill">🎤 {artists:,} artists</span>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+def render_home_dashboard(
+    movies: pd.DataFrame,
+    music: pd.DataFrame,
+    cache: dict[str, dict[str, Any]],
+) -> None:
     owned_movies = movies[movies["Any Owned"]]
     if "home_shelf_seed" not in st.session_state:
         st.session_state.home_shelf_seed = random.randrange(2**32)
@@ -1302,32 +1369,46 @@ def render_home_dashboard(movies: pd.DataFrame, music: pd.DataFrame) -> None:
 
     st.divider()
     st.markdown("### A few things from the shelves")
-    movie_shelf, music_shelf = st.columns(2, gap="large")
+    movie_shelf, music_shelf = st.tabs(["🎬 Movies", "💿 Music"])
     with movie_shelf:
-        st.caption("MOVIES")
-        for title in movie_shelf_items["Movie"]:
-            st.markdown(
-                "🎬 " + detail_link(str(title), movie=str(title)),
-                unsafe_allow_html=True,
-            )
-        if owned_movies.empty:
+        if movie_shelf_items.empty:
             st.info("No owned movies are listed yet.")
+        else:
+            columns = st.columns(len(movie_shelf_items))
+            for column, (_, movie) in zip(columns, movie_shelf_items.iterrows()):
+                with column:
+                    metadata = cache.get(str(movie["Movie"]).strip().casefold(), {})
+                    st.image(
+                        metadata.get("poster_url") or PLACEHOLDER_POSTER,
+                        use_container_width=True,
+                    )
+                    st.markdown(
+                        detail_link(str(movie["Movie"]), movie=str(movie["Movie"])),
+                        unsafe_allow_html=True,
+                    )
+                    if metadata.get("year"):
+                        st.caption(str(metadata["year"]))
     with music_shelf:
-        st.caption("MUSIC")
-        for _, album in music_shelf_items.iterrows():
-            st.markdown(
-                "💿 "
-                + detail_link(
-                    str(album["Album"]),
-                    album=str(album["Album"]),
-                    artist=str(album["Artist"]),
-                )
-                + " — "
-                + detail_link(str(album["Artist"]), artist=str(album["Artist"])),
-                unsafe_allow_html=True,
-            )
-        if music.empty:
+        if music_shelf_items.empty:
             st.info("No albums are listed yet. Sync with Plex to add them.")
+        else:
+            columns = st.columns(len(music_shelf_items))
+            for column, (_, album) in zip(columns, music_shelf_items.iterrows()):
+                with column:
+                    artwork = fetch_plex_artwork("", str(album["Artwork"]), "")
+                    st.image(
+                        artwork or "https://placehold.co/500x500?text=Album+Art",
+                        use_container_width=True,
+                    )
+                    st.markdown(
+                        detail_link(
+                            str(album["Album"]),
+                            album=str(album["Album"]),
+                            artist=str(album["Artist"]),
+                        ),
+                        unsafe_allow_html=True,
+                    )
+                    st.caption(str(album["Artist"]))
 
 
 @st.cache_data(show_spinner=False)
@@ -1676,9 +1757,10 @@ def main() -> None:
     )
 
     if view == "Home":
+        render_home_hero(movies, music)
         render_everything_search(movies, music, cache)
         st.divider()
-        render_home_dashboard(movies, music)
+        render_home_dashboard(movies, music, cache)
     elif view == "Movies":
         with st.expander("Search, filter, and sort", expanded=True):
             filtered = filter_movies(movies)
