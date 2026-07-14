@@ -525,7 +525,7 @@ def owned_format_text(row: pd.Series) -> str:
 def detail_link(label: str, **params: str) -> str:
     url = "?" + urlencode(params)
     return (
-        f'<a class="detail-link" href="{html.escape(url, quote=True)}">'
+        f'<a class="detail-link" href="{html.escape(url, quote=True)}" target="_self">'
         f'{html.escape(label)}</a>'
     )
 
@@ -537,7 +537,7 @@ def render_movie_detail(
     cache_path: Path,
     cache: dict[str, dict[str, Any]],
 ) -> None:
-    st.markdown('[← Back to the collection](?)')
+    st.markdown(detail_link("← Back to the collection"), unsafe_allow_html=True)
     metadata = get_metadata(str(movie["Movie"]), token, api_key, cache_path, cache)
     poster_col, info_col = st.columns([1, 2], gap="large")
     with poster_col:
@@ -569,7 +569,7 @@ def render_movie_detail(
 
 
 def render_album_detail(album: pd.Series, music: pd.DataFrame) -> None:
-    st.markdown('[← Back to the collection](?)')
+    st.markdown(detail_link("← Back to the collection"), unsafe_allow_html=True)
     artwork_col, info_col = st.columns([1, 2], gap="large")
     with artwork_col:
         artwork = fetch_plex_artwork("", str(album["Artwork"]), "")
@@ -621,7 +621,7 @@ def render_album_shelf(albums: pd.DataFrame) -> None:
 
 
 def render_artist_detail(artist: str, music: pd.DataFrame) -> None:
-    st.markdown('[← Back to the collection](?)')
+    st.markdown(detail_link("← Back to the collection"), unsafe_allow_html=True)
     albums = music[music["Artist"].str.casefold() == artist.casefold()]
     st.header(artist)
     if albums.empty:
