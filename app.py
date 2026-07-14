@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hmac
 import json
 import os
 import random
@@ -25,6 +26,7 @@ from music_library.blog import BlogPost, load_posts
 DEFAULT_CSV_PATH = DATA_PATH / "movies.csv"
 DEFAULT_MUSIC_CSV_PATH = DATA_PATH / "plex_music.csv"
 DEFAULT_CACHE_PATH = DATA_PATH / "tmdb_cache.json"
+SYNC_STATUS_PATH = DATA_PATH / "sync_status.json"
 TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p/w500"
 PLACEHOLDER_POSTER = "https://placehold.co/500x750?text=No+Poster"
 
@@ -1320,6 +1322,58 @@ def format_blog_date(value: Any) -> str:
     return f"{value.strftime('%B')} {value.day}, {value.year}"
 
 
+def get_builder_password() -> str:
+    try:
+        configured = str(st.secrets.get("BUILDER_PASSWORD", "")).strip()
+    except Exception:
+        configured = ""
+    return configured or os.getenv("BUILDER_PASSWORD", "").strip()
+
+
+def render_builder_status() -> None:
+    st.subheader("Builder diagnostics")
+    configured_password = get_builder_password()
+    if not configured_password:
+        st.error("Builder diagnostics are disabled until BUILDER_PASSWORD is configured.")
+        return
+    supplied_password = st.text_input("Builder password", type="password", key="builder_password")
+    if not supplied_password or not hmac.compare_digest(supplied_password, configured_password):
+        if supplied_password:
+            st.error("That password is not correct.")
+        return
+
+    try:
+        status = json.loads(SYNC_STATUS_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        st.info("No sync-health report exists yet. Run media-library-sync once to create it.")
+        return
+
+    labels = {
+        "music_scan": "Music library scan",
+        "musicbrainz_refresh": "MusicBrainz refresh",
+        "plex_export": "Plex export",
+        "artwork_refresh": "Artwork refresh",
+        "github_push": "GitHub publish",
+    }
+    for key, label in labels.items():
+        stage = status.get("stages", {}).get(key, {})
+        st.markdown(f"#### {label}")
+        columns = st.columns(2)
+        columns[0].metric("Status", str(stage.get("status", "Never run")).title())
+        columns[1].metric("Last success (UTC)", stage.get("last_success", "Never"))
+        details = stage.get("details", {})
+        if details:
+            st.caption(" · ".join(f"{name.replace('_', ' ').title()}: {value}" for name, value in details.items()))
+        if stage.get("error"):
+            st.error(stage["error"])
+        elif stage.get("last_error_message"):
+            st.caption(
+                f"Most recent error ({stage.get('last_error', 'unknown time')}): "
+                f"{stage['last_error_message']}"
+            )
+    st.caption(f"Report updated: {status.get('updated_at', 'Unknown')} · Times are UTC")
+
+
 def render_blog() -> None:
     st.subheader("The Journal")
     st.caption("Stories, discoveries, and notes from the collection.")
@@ -1357,6 +1411,10 @@ def render_blog() -> None:
 
 def main() -> None:
     st.title("📼 Millennial Antiquing")
+
+    if st.query_params.get("builder") == "1":
+        render_builder_status()
+        return
 
     csv_path = str(DEFAULT_CSV_PATH)
     cache_path = DEFAULT_CACHE_PATH

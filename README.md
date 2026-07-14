@@ -37,6 +37,12 @@ Deploy `app.py` on Streamlit Community Cloud from the same private repository fo
 
 Movie posters use public TMDB image URLs. During each local Plex sync, album covers are downloaded into `data/album_art` and committed with the generated catalogs. The hosted dashboard reads those cached files and never needs network access to the local Plex server. If an album has not yet been cached, the hosted app shows a placeholder until the next successful local sync.
 
+## Builder diagnostics
+
+Sync health is intentionally absent from the normal navigation. Set a long, unique `BUILDER_PASSWORD` in Streamlit Cloud secrets and visit the app with `?builder=1` appended to its URL. The page requires that password before showing sync timestamps, sanitized errors, or catalog counts.
+
+For local use, copy `.streamlit/secrets.toml.example` to `.streamlit/secrets.toml` and replace the example password. The real secrets file is ignored by Git.
+
 ## Metadata writes
 
 Nightly sync is read-only toward media files. WAV metadata editing remains an explicit manual operation:
