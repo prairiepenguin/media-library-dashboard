@@ -961,7 +961,11 @@ def render_table(df: pd.DataFrame) -> None:
     )
 
 
-def render_everything_search(movies: pd.DataFrame, music: pd.DataFrame) -> None:
+def render_everything_search(
+    movies: pd.DataFrame,
+    music: pd.DataFrame,
+    cache: dict[str, dict[str, Any]],
+) -> None:
     st.subheader("Search everything")
     query = st.text_input(
         "Search movies, artists, albums, and genres",
@@ -986,13 +990,41 @@ def render_everything_search(movies: pd.DataFrame, music: pd.DataFrame) -> None:
     movie_col, music_col = st.columns(2)
     with movie_col:
         st.markdown(f"#### Movies ({len(movie_matches):,})")
-        for title in movie_matches["Movie"].head(12):
-            st.write(f"🎬 {title}")
+        for _, movie in movie_matches.head(12).iterrows():
+            metadata = cache.get(str(movie["Movie"]).strip().casefold(), {})
+            poster_col, details_col = st.columns([1, 3])
+            with poster_col:
+                st.image(
+                    metadata.get("poster_url") or PLACEHOLDER_POSTER,
+                    use_container_width=True,
+                )
+            with details_col:
+                st.markdown(f"**{movie['Movie']}**")
+                facts = [str(metadata.get("year") or "")]
+                rating = metadata.get("rating")
+                if rating is not None:
+                    facts.append(f"★ {float(rating):.1f}")
+                facts.append(owned_format_text(movie))
+                st.caption(" · ".join(fact for fact in facts if fact))
     with music_col:
         st.markdown(f"#### Music ({len(music_matches):,})")
         for _, album in music_matches.head(12).iterrows():
-            year = f" ({album['Year']})" if album["Year"] else ""
-            st.write(f"💿 {album['Artist']} — {album['Album']}{year}")
+            artwork_col, details_col = st.columns([1, 3])
+            with artwork_col:
+                artwork = fetch_plex_artwork("", str(album["Artwork"]), "")
+                st.image(
+                    artwork or "https://placehold.co/500x500?text=Album+Art",
+                    use_container_width=True,
+                )
+            with details_col:
+                st.markdown(f"**{album['Album']}**")
+                st.caption(
+                    " · ".join(
+                        str(fact)
+                        for fact in (album["Artist"], album["Year"], album["Genres"])
+                        if fact
+                    )
+                )
     if movie_matches.empty and music_matches.empty:
         st.info("Nothing in Millennial Antiquing matches that search yet.")
 
@@ -1440,7 +1472,7 @@ def main() -> None:
     )
 
     if view == "Home":
-        render_everything_search(movies, music)
+        render_everything_search(movies, music, cache)
         st.divider()
         render_home_dashboard(movies, music)
     elif view == "Movies":
