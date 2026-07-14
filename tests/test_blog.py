@@ -44,3 +44,16 @@ def test_load_posts_sorts_newest_first_and_reports_invalid_files(tmp_path):
 
     assert [post.title for post in posts] == ["Newer", "Older"]
     assert errors == ["broken.md: missing opening YAML front matter delimiter"]
+
+
+def test_parse_post_allows_omitting_summary(tmp_path):
+    path = tmp_path / "simple.md"
+    path.write_text(
+        "---\ntitle: Simple Post\ndate: 2026-07-14\n---\nJust the post.",
+        encoding="utf-8",
+    )
+
+    post = parse_post(path)
+
+    assert post.summary == ""
+    assert post.body == "Just the post."

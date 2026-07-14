@@ -47,7 +47,7 @@ def parse_post(path: Path) -> BlogPost:
         key, value = line.split(":", 1)
         metadata[key.strip().casefold()] = value.strip().strip("'\"")
 
-    missing = [key for key in ("title", "date", "summary") if not metadata.get(key)]
+    missing = [key for key in ("title", "date") if not metadata.get(key)]
     if missing:
         raise ValueError(f"missing required field(s): {', '.join(missing)}")
 
@@ -60,7 +60,7 @@ def parse_post(path: Path) -> BlogPost:
         slug=path.stem,
         title=metadata["title"],
         published=published,
-        summary=metadata["summary"],
+        summary=metadata.get("summary", ""),
         tags=_parse_tags(metadata.get("tags", "")),
         cover_image=metadata.get("cover_image", ""),
         body="\n".join(lines[closing + 1 :]).strip(),
